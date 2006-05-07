@@ -6,7 +6,7 @@ import EventManagement.*;
  * 
  * 
  */
-public class Dialog extends GUI.Listener {
+public class Dialog extends Listener {
 
 /**
  * <p>Does ...</p>

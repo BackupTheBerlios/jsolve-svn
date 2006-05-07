@@ -1,12 +1,14 @@
 
 package Exercise;
+import javax.swing.JPanel;
+
 import ExerciseManagement.*;
 
 /**
  * 
  * 
  */
-public class MultichoiceExercise extends Exercise.Exercise {
+public class MultichoiceExercise extends Exercise {
 
 /**
  * <p>Represents ...</p>
@@ -29,5 +31,11 @@ public class MultichoiceExercise extends Exercise.Exercise {
     public java.util.List validate() {        
         // your code here
         return null;
-    } 
+    }
+
+@Override
+	public void draw(JPanel panel) {
+	// TODO Auto-generated method stub
+	
+	} 
  }

@@ -17,7 +17,7 @@ public class JSolve {
  * 
  * @param args 
  */
-    public void main(main.JSolve.String[] args) {        
+    public void main(String[] args) {        
         // your code here
     } 
  }

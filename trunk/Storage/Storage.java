@@ -1,7 +1,9 @@
 
 package Storage;
-import Data.*;
-import EventManagement.*;
+import java.util.List;
+import java.util.Map;
+
+import Exercise.Exercise;
 
 /**
  * 
@@ -13,7 +15,7 @@ public class Storage {
  * <p>Represents ...</p>
  * 
  */
-    private ExerciseManagement.ExerciseManagement.List_Exercise_ lijst;
+    private List<Exercise> lijst;
 
 /**
  * <p>Represents ...</p>
@@ -28,7 +30,7 @@ public class Storage {
  * @param id 
  * @return 
  */
-    public Exercise.Exercise getExercise(int id) {        
+    public Exercise getExercise(int id) {        
         // your code here
         return null;
     } 
@@ -40,7 +42,7 @@ public class Storage {
  * @param id 
  * @param ex 
  */
-    public void setExercise(int id, Exercise.Exercise ex) {        
+    public void setExercise(int id, Exercise ex) {        
         // your code here
     } 
 
@@ -50,18 +52,7 @@ public class Storage {
  * 
  * @return 
  */
-    public ExerciseManagement.ExerciseManagement.List_Exercise_ getExerciseTypes() {        
-        // your code here
-        return null;
-    } 
-
-/**
- * <p>Does ...</p>
- * 
- * 
- * @return 
- */
-    public ExerciseManagement.ExerciseManagement.Map_String,List_integer__ getTheme() {        
+    public List<Exercise> getExerciseTypes() {        
         // your code here
         return null;
     } 
@@ -72,7 +63,18 @@ public class Storage {
  * 
  * @return 
  */
-    public Storage.String getSequence() {        
+    public Map<String,List<Integer>> getTheme() {        
+        // your code here
+        return null;
+    } 
+
+/**
+ * <p>Does ...</p>
+ * 
+ * 
+ * @return 
+ */
+    public String getSequence() {        
         // your code here
         return null;
     } 
@@ -83,7 +85,7 @@ public class Storage {
  * 
  * @param sequence 
  */
-    public void setSequence(ExerciseManagement.ExerciseManagement.Map_String,List_integer__ sequence) {        
+    public void setSequence(Map<String,List<Integer>> sequence) {        
         // your code here
     } 
 
@@ -93,7 +95,7 @@ public class Storage {
  * 
  * @return 
  */
-    public Storage.List_String_ getExerciseNames() {        
+    public List<String> getExerciseNames() {        
         // your code here
         return null;
     } 

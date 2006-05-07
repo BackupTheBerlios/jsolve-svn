@@ -1,12 +1,12 @@
 
 package GUI;
-import EventManagement.*;
+import javax.swing.JMenu;
 
 /**
  * 
  * 
  */
-public class GUI extends GUI.Listener {
+public class GUI extends Listener {
 
 /**
  * <p>Represents ...</p>

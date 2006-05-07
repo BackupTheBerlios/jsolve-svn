@@ -6,5 +6,5 @@ import EventManagement.*;
  * 
  * 
  */
-public class SolveDialog extends GUI.Dialog {
+public class SolveDialog extends Dialog {
  }

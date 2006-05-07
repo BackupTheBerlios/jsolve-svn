@@ -6,5 +6,5 @@ import EventManagement.*;
  * 
  * 
  */
-public class InlogDialog extends GUI.Dialog {
+public class InlogDialog extends Dialog {
  }

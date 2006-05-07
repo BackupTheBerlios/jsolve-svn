@@ -1,8 +1,8 @@
 
 package EventManagement;
-import ExerciseManagement.*;
-import GUI.*;
-import Storage.*;
+import java.util.List;
+
+import Exercise.Exercise;
 
 /**
  * 
@@ -14,7 +14,7 @@ public class EventManagement {
  * <p>Represents ...</p>
  * 
  */
-    private ExerciseManagement.ExerciseManagement.List_Exercise_ lijst;
+    private List<Exercise> lijst;
 
 /**
  * <p>Represents ...</p>
