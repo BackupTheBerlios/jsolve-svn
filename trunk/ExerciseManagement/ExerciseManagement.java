@@ -1,7 +1,9 @@
 
 package ExerciseManagement;
-import EventManagement.*;
-import Exercise.*;
+import java.util.List;
+import java.util.Map;
+
+import Exercise.Exercise;
 
 /**
  * 
@@ -13,7 +15,7 @@ public class ExerciseManagement {
  * <p>Represents ...</p>
  * 
  */
-    private ExerciseManagement.List_Exercise_ lijst;
+    private List<Exercise> lijst;
 
 /**
  * <p>Represents ...</p>
@@ -38,7 +40,7 @@ public class ExerciseManagement {
  * 
  * @return 
  */
-    public Exercise.Exercise getActiveExercise() {        
+    public Exercise getActiveExercise() {        
         // your code here
         return null;
     } 
@@ -49,7 +51,7 @@ public class ExerciseManagement {
  * 
  * @param ex 
  */
-    public void setActiveExercise(Exercise.Exercise ex) {        
+    public void setActiveExercise(Exercise ex) {        
         // your code here
     } 
 
@@ -59,7 +61,7 @@ public class ExerciseManagement {
  * 
  * @return 
  */
-    public ExerciseManagement.List_Exercise_ getList() {        
+    public List<Exercise> getList() {        
         // your code here
         return null;
     } 
@@ -70,7 +72,18 @@ public class ExerciseManagement {
  * 
  * @param lijst 
  */
-    public ExerciseManagement.void setList(ExerciseManagement.List_Exercise_ lijst) {        
+    public void setList(List<Exercise> lijst) {        
+        // your code here
+    } 
+
+/**
+ * <p>Does ...</p>
+ * 
+ * 
+ * @param lijst 
+ * @return 
+ */
+    public Map<String,List<Integer>> saveList(List<Exercise> lijst) {        
         // your code here
         return null;
     } 
@@ -82,19 +95,7 @@ public class ExerciseManagement {
  * @param lijst 
  * @return 
  */
-    public ExerciseManagement.Map_String,List_integer__ saveList(ExerciseManagement.List_Exercise_ lijst) {        
-        // your code here
-        return null;
-    } 
-
-/**
- * <p>Does ...</p>
- * 
- * 
- * @param lijst 
- * @return 
- */
-    public ExerciseManagement.List_Exercise_ loadList(ExerciseManagement.Map_String,List_integer__ lijst) {        
+    public List<Exercise> loadList(Map<String,List<Integer>> lijst) {        
         // your code here
         return null;
     } 
