@@ -10,29 +10,23 @@ import ExerciseManagement.*;
  */
 public abstract class Exercise {
 
-/**
- * <p>Represents ...</p>
- * 
- */
     private String theme;
 
-/**
- * <p>Represents ...</p>
- * 
- */
     private String question;
 
-/**
- * <p>Represents ...</p>
- * 
- */
     private String title;
+    
+/**
+ * constructor
+ */
+    public Exercise(String title, String theme, String question) {
+    	this.title = title;
+    	this.theme = theme;
+    	this.question = question;
+    }
 
 /**
- * <p>Does ...</p>
- * 
- * 
- * @param panel 
+ * <p>...</p>
  */
     public abstract void draw(JPanel panel);
 
@@ -43,22 +37,18 @@ public abstract class Exercise {
  * @return 
  */
     public abstract java.util.List validate();
+    
+
 
 /**
- * <p>Does ...</p>
- * 
- * 
- * @return 
+ * <p>Returns the title of the exercice.</p>
  */
     public String getTitle() {
         return title;
     } 
 
 /**
- * <p>Does ...</p>
- * 
- * 
- * @return 
+ * <p>Returns the question of the exercice.</p>
  */
     public String getQuestion() {
         return question;

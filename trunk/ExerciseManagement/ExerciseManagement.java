@@ -22,6 +22,9 @@ public class ExerciseManagement {
  * 
  */
     private int index;
+    
+    
+    public ExerciseManagement() {}
 
 /**
  * <p>Does ...</p>
@@ -41,8 +44,10 @@ public class ExerciseManagement {
  * @return 
  */
     public Exercise getActiveExercise() {        
-        // your code here
-        return null;
+        if(lijst.size() == 0)
+        	return null;
+        else
+        	return lijst.get(0);
     } 
 
 /**
@@ -52,7 +57,7 @@ public class ExerciseManagement {
  * @param ex 
  */
     public void setActiveExercise(Exercise ex) {        
-        // your code here
+        lijst.add(ex);
     } 
 
 /**

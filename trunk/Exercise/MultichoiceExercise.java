@@ -1,5 +1,7 @@
 
 package Exercise;
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import ExerciseManagement.*;
@@ -11,16 +13,41 @@ import ExerciseManagement.*;
 public class MultichoiceExercise extends Exercise {
 
 /**
- * <p>Represents ...</p>
+ * <p>The list of possible answers.</p>
  * 
  */
-    private java.util.List possibilities;
+    private List possibilities;
 
 /**
- * <p>Represents ...</p>
+ * <p>Represents the index of the right answer in the list.</p>
  * 
  */
-    private String correct_solution;
+    private int correctSolution;
+    
+    
+/**
+ * <p>Constructor</p>
+ */
+    public MultichoiceExercise(String title, String theme, String question, List<String> possibilities, int correctSolution)
+    {
+    	super(title,theme,question);
+    	this.possibilities = possibilities;
+    	this.correctSolution = correctSolution;
+    }
+    
+/**
+ * Returns the list of answer possibilities.
+ */
+    public List<String> getPossibilities() {
+    	return possibilities;
+    }
+    
+/**
+ * Returns the index of the correct solution.
+ */
+    public int getCorrectSolution() {
+    	return correctSolution;
+    }
 
 /**
  * <p>Does ...</p>
@@ -28,14 +55,13 @@ public class MultichoiceExercise extends Exercise {
  * 
  * @return 
  */
-    public java.util.List validate() {        
-        // your code here
+    public List<String> validate() {    
+    	// TODO
         return null;
     }
 
-@Override
 	public void draw(JPanel panel) {
-	// TODO Auto-generated method stub
+	// TODO
 	
 	} 
  }
