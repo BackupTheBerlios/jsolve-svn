@@ -7,8 +7,7 @@ import javax.swing.JPanel;
 import ExerciseManagement.*;
 
 /**
- * 
- * 
+ * Subclass of exercise specificly for multiple choise exercises.
  */
 public class MultichoiceExercise extends Exercise {
 
@@ -50,16 +49,16 @@ public class MultichoiceExercise extends Exercise {
     }
 
 /**
- * <p>Does ...</p>
- * 
- * 
- * @return 
+ * <p>Tests if the given answer is true and calls the right tests.</p>
  */
-    public List<String> validate() {    
+    public List<String> validate(String answer) {    
     	// TODO
         return null;
     }
-
+    
+/**
+ * <p>Draws the answer panel of the exercise</p>
+ */
 	public void draw(JPanel panel) {
 	// TODO
 	

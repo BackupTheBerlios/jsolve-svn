@@ -1,12 +1,13 @@
 
 package Exercise;
+import java.util.List;
+
 import javax.swing.JPanel;
 
 import ExerciseManagement.*;
 
 /**
- * 
- * 
+ * Abstract class that defines the main funtions of an exercise object.
  */
 public abstract class Exercise {
 
@@ -26,29 +27,31 @@ public abstract class Exercise {
     }
 
 /**
- * <p>...</p>
+ * <p>Draws the answer panel of the exercice, wich depends on the type of exercise</p>
  */
     public abstract void draw(JPanel panel);
 
 /**
- * <p>Does ...</p>
- * 
- * 
- * @return 
+ * <p>Tests if the given answer is true and calls the right tests.</p> 
  */
-    public abstract java.util.List validate();
+    public abstract List<String> validate(String answer);
     
-
+/**
+ * <p>Returns the theme of the exercise.</p>
+ */
+    public String getTheme() {
+    	return theme;
+    }
 
 /**
- * <p>Returns the title of the exercice.</p>
+ * <p>Returns the title of the exercise.</p>
  */
     public String getTitle() {
         return title;
     } 
 
 /**
- * <p>Returns the question of the exercice.</p>
+ * <p>Returns the question of the exercise.</p>
  */
     public String getQuestion() {
         return question;
