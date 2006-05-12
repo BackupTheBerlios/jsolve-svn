@@ -1,10 +1,9 @@
 
 package Exercise;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.JPanel;
-
-import ExerciseManagement.*;
 
 /**
  * Subclass of exercise specificly for multiple choise exercises.
@@ -15,7 +14,7 @@ public class MultichoiceExercise extends Exercise {
  * <p>The list of possible answers.</p>
  * 
  */
-    private List possibilities;
+    private List<String> possibilities;
 
 /**
  * <p>Represents the index of the right answer in the list.</p>
@@ -51,8 +50,14 @@ public class MultichoiceExercise extends Exercise {
 /**
  * <p>Tests if the given answer is true and calls the right tests.</p>
  */
-    public List<String> validate(String answer) {    
-    	// TODO
+    public List<String> validate(String answer) {
+    	List<String> output = new ArrayList<String>();
+    	boolean correct = false;
+    	for (String poss : possibilities) {
+    		if (poss.equals(answer))
+    			correct = true;
+    	}
+    	output.add((correct)?"Uw antwoord is juist.":"Uw antwoord is verkeerd.");
         return null;
     }
     
