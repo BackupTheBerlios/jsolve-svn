@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE jdo SYSTEM "http://java.sun.com/dtd/jdo_1_0.dtd">
+
+<jdo>
+    <package name="Exercise">
+	<class name="Exercise" />
+	<class name="MultichoiceExercise" persistence-capable-superclass="Exercise"/>
+    </package>
+</jdo>

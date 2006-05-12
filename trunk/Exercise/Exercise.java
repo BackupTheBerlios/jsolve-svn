@@ -27,6 +27,11 @@ public abstract class Exercise {
     }
 
 /**
+ * <p>Empty constructor for enchance method of database</p>
+ */
+    public Exercise() {}
+
+/**
  * <p>Draws the answer panel of the exercice, wich depends on the type of exercise</p>
  */
     public abstract void draw(JPanel panel);
@@ -56,4 +61,11 @@ public abstract class Exercise {
     public String getQuestion() {
         return question;
     } 
+
+/**
+ * <p>Returns a string representation of this Object</p>
+ */
+    public String toString() {
+	  return title + "\t" + theme;
+    }
  }
