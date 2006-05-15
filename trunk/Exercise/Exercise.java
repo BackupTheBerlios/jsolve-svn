@@ -44,7 +44,7 @@ public abstract class Exercise {
 /**
  * <p>Tests if the given answer is true and calls the right tests.</p> 
  */
-    public abstract List<String> validate(String answer);
+    public abstract List<String> validate();
     
 /**
  * <p>Returns the theme of the exercise.</p>

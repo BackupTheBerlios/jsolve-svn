@@ -1,6 +1,8 @@
 
 package Exercise;
 import java.awt.Insets;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,6 +28,8 @@ public class MultichoiceExercise extends Exercise {
  * 
  */
     private int correctSolution;
+   
+    private JCheckBox[] chkbox;
     
     
 /**
@@ -55,15 +59,15 @@ public class MultichoiceExercise extends Exercise {
 /**
  * <p>Tests if the given answer is true and calls the right tests.</p>
  */
-    public List<String> validate(String answer) {
+    public List<String> validate() {
     	List<String> output = new ArrayList<String>();
     	boolean correct = false;
-    	int i = 0;
-    	for (String poss : possibilities) {
-    		if (poss.equals(answer) && i == correctSolution)
+    	
+    	for (int i = 0; i < chkbox.length; i++) {
+    		if (chkbox[i].isSelected() && (i == correctSolution))
     			correct = true;
-    		i++;
     	}
+    	
     	output.add((correct)?"Uw antwoord is juist.":"Uw antwoord is verkeerd.");
         return null;
     }
@@ -72,12 +76,12 @@ public class MultichoiceExercise extends Exercise {
  * <p>Draws the answer panel of the exercise</p>
  */
 	public void drawSolvePanel(JPanel panel) {
-		JCheckBox[] box = new JCheckBox[possibilities.size()];
-		for (int i = 0; i < box.length; i++) {
-			box[i].setText(possibilities.get(i));
-			box[i].setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			box[i].setMargin(new Insets(0, 0, 0, 0));
-			panel.add(box[i]);
+		chkbox = new JCheckBox[possibilities.size()];
+		for (int i = 0; i < chkbox.length; i++) {
+			chkbox[i].setText(possibilities.get(i));
+			chkbox[i].setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			chkbox[i].setMargin(new Insets(0, 0, 0, 0));
+			panel.add(chkbox[i]);
 		}	
 		
 		panel.validate();
@@ -86,17 +90,36 @@ public class MultichoiceExercise extends Exercise {
 	/**
 	 * <p>Draws the add panel of the exercise</p>
 	 */
-	public void drawAddPanel(JPanel panel) {
-		/*JButton btnAddAnswer = new JButton();
-		btnAddAnswer.setText("Add answer");
-		panel.add(btnAddAnswer);*/
-		
-		JTextField[] field = new JTextField[4];
-		for (int i = 0; i < field.length; i++) {
-			field[i].setText("");
-			panel.add(field[i]);
+	public void drawAddPanel(JPanel panel) {		
+		final JTextField[] txtfield = new JTextField[10];
+		for (int i = 0; i < txtfield.length; i++) {
+			txtfield[i].setText("");
+			panel.add(txtfield[i]);
 		}
+		
+		JButton btnAdd = new JButton();
+		btnAdd.setText("Add");
+		btnAdd.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				for (int i = 0; i < 10; i++) {
+					if (!txtfield[i].getText().equals(""))
+						possibilities.add(txtfield[i].getText());
+				}
+			}
+		});
+		panel.add(btnAdd);
+		
+		final JTextField correctone = new JTextField();
+		panel.add(correctone);
+		JButton btnAddSol = new JButton();
+		btnAddSol.setText("add solution");
+		btnAddSol.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				correctSolution = Integer.valueOf(correctone.getText());
+			}
+		});
+		panel.add(btnAddSol);
 		
 		panel.validate();
 	}
- }
+}

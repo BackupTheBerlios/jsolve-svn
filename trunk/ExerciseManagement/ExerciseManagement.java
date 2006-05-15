@@ -90,8 +90,8 @@ public class ExerciseManagement {
  * Dummy
  * 
  */
-    public List<String> validateExercise(String answer) {        
-        List comments = lijst.get(index).validate(answer);
+    public List<String> validateExercise() {        
+        List comments = lijst.get(index).validate();
         return comments;
     } 
  }
