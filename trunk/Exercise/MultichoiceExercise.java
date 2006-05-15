@@ -58,9 +58,11 @@ public class MultichoiceExercise extends Exercise {
     public List<String> validate(String answer) {
     	List<String> output = new ArrayList<String>();
     	boolean correct = false;
+    	int i = 0;
     	for (String poss : possibilities) {
-    		if (poss.equals(answer))
+    		if (poss.equals(answer) && i == correctSolution)
     			correct = true;
+    		i++;
     	}
     	output.add((correct)?"Uw antwoord is juist.":"Uw antwoord is verkeerd.");
         return null;
