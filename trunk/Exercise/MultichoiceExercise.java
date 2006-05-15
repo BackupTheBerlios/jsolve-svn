@@ -77,7 +77,9 @@ public class MultichoiceExercise extends Exercise {
  */
 	public void drawSolvePanel(JPanel panel) {
 		chkbox = new JCheckBox[possibilities.size()];
+		
 		for (int i = 0; i < chkbox.length; i++) {
+			chkbox[i] = new JCheckBox();
 			chkbox[i].setText(possibilities.get(i));
 			chkbox[i].setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
 			chkbox[i].setMargin(new Insets(0, 0, 0, 0));
@@ -92,6 +94,9 @@ public class MultichoiceExercise extends Exercise {
 	 */
 	public void drawAddPanel(JPanel panel) {		
 		final JTextField[] txtfield = new JTextField[10];
+		for (int i = 0; i < txtfield.length; i++) {
+			txtfield[i] = new JTextField();
+		}
 		for (int i = 0; i < txtfield.length; i++) {
 			txtfield[i].setText("");
 			panel.add(txtfield[i]);
