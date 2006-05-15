@@ -1,13 +1,14 @@
 
 package Exercise;
 import java.awt.Insets;
-import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 
 /**
  * Subclass of exercise specificly for multiple choise exercises.
@@ -68,7 +69,7 @@ public class MultichoiceExercise extends Exercise {
 /**
  * <p>Draws the answer panel of the exercise</p>
  */
-	public void draw(JPanel panel) {
+	public void drawSolvePanel(JPanel panel) {
 		JCheckBox[] box = new JCheckBox[possibilities.size()];
 		for (int i = 0; i < box.length; i++) {
 			box[i].setText(possibilities.get(i));
@@ -78,5 +79,22 @@ public class MultichoiceExercise extends Exercise {
 		}	
 		
 		panel.validate();
-	} 
+	}
+	
+	/**
+	 * <p>Draws the add panel of the exercise</p>
+	 */
+	public void drawAddPanel(JPanel panel) {
+		/*JButton btnAddAnswer = new JButton();
+		btnAddAnswer.setText("Add answer");
+		panel.add(btnAddAnswer);*/
+		
+		JTextField[] field = new JTextField[4];
+		for (int i = 0; i < field.length; i++) {
+			field[i].setText("");
+			panel.add(field[i]);
+		}
+		
+		panel.validate();
+	}
  }

@@ -34,7 +34,12 @@ public abstract class Exercise {
 /**
  * <p>Draws the answer panel of the exercice, wich depends on the type of exercise</p>
  */
-    public abstract void draw(JPanel panel);
+    public abstract void drawSolvePanel(JPanel panel);
+    
+    /**
+     * <p>Draws the add panel of the exercise</p>
+     */
+    public abstract void drawAddPanel(JPanel panel);
 
 /**
  * <p>Tests if the given answer is true and calls the right tests.</p> 
