@@ -6,7 +6,7 @@
 
 package GUI;
 
-import java.util.List;
+import Exercise.MultichoiceExercise;
 
 /**
  *
@@ -15,11 +15,18 @@ import java.util.List;
 public class NewExercisePanel extends javax.swing.JPanel {
     
     private GUImodel gModel;
+    private MultichoiceExercise mEx;
     /** Creates new form NewExercisPanel */
-    public NewExercisePanel(GUImodel guiModel) {
+    public NewExercisePanel(GUImodel guiModel, MultichoiceExercise mExercise) {
         initComponents();
         gModel = guiModel; 
+        mEx = mExercise;
         
+        
+        /**
+         *  Hardcoded:  MultichoiceExercise
+         */
+        mEx.drawAddPanel(antwoordPanel);
     }
     
     /** This method is called from within the constructor to

@@ -216,9 +216,9 @@ public class GUImodel {
 //             themaLijst.add("exceptions");
 //             themaLijst.add("Java syntax");
 //             themaLijst.add("C++ Syntax");
-             
-             
-             newExPanel = new NewExercisePanel(this);
+             List<String> testList = new ArrayList<String>();
+             MultichoiceExercise dummie = new MultichoiceExercise("","","", testList,1);//(MultichoiceExercise)connection.getExercise("multidum");
+             newExPanel = new NewExercisePanel(this, dummie);
              return newExPanel;
              
     }
