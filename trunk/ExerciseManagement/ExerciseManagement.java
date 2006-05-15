@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import Exercise.Exercise;
+import java.util.ArrayList;
 
 /**
  * <p>Manages the sequence of exercises to be solved.
@@ -25,7 +26,9 @@ public class ExerciseManagement {
     private int index;
     
     
-    public ExerciseManagement() {}
+    public ExerciseManagement() {
+        lijst = new ArrayList<Exercise>();
+    }
 
 /**
  * Dummy

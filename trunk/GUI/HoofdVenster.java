@@ -8,10 +8,10 @@ package GUI;
 import java.awt.event.ActionListener;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-import Storage.*;
 import java.awt.event.ActionEvent;
 import java.util.List;
 import Exercise.*;
+import java.awt.FlowLayout;
 /*
  * window.java
  *
@@ -26,18 +26,23 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
     
     private boolean teacherMode;
     private GUImodel gModel;
-    //private InlogDialog iDialog;
     private List<String> nameList;
-    private Exercise shownExercise;
-//    private Exercise shownExercisePanel;
+
 
     
     
     
     /** Creates new form window */
     public HoofdVenster(GUImodel model) {
-        initComponents();
-        //typeNamesList = new ArrayList<String>();
+        initComponents();        
+        
+        /**
+         * TODO  oefn Oplossen
+         */
+        OplosMenuItem.setVisible(false);
+        
+        
+        
         
         /**
          * registreerd model bij het GUImodel
@@ -51,49 +56,45 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
          */
         gModel.showInlogDialog(this);
        
-       
-//        iDialog = new InlogDialog(this, true);
-//        if (iDialog.showInlogDialog()){
-//            gModel.setTeacherMode(true);  
-//        }else 
-//            gModel.setTeacherMode(false);
-        
+
         /**
          * initialiseer mogelijke type menuItems
          */
         initialiseerTypeMenuItems();
        
-       
-        
         this.setVisible(true);
-        
-       
-        
     }
+    
     
     public void stateChanged(ChangeEvent e){
         editorMenu.setVisible(gModel.getTeacherMode());
-        if ( gModel.getShownExercise()!= shownExercise){
-            shownExercise= gModel.getShownExercise();
-            showExercise(shownExercise);
+        if ( gModel.getLastShowedExercise()!= gModel.getActiveExercise()){
+            Exercise ex = gModel.getActiveExercise();
+            showExercise(ex);
         }
-//        if (gModel.getShownExercisepanel()!= shownExercisePanel){
-//            shownExercisePanel = gModel.getShownExercisepanel();
-//            
-//        }
+        
+        if (gModel.getLastShowedExercise() != null){
+            saveMenuItem.setVisible(true);
+        }
     }
     
+    
+    /**
+     *  geeft oefening weer in hoofdpaneel
+     */
     public void showExercise(Exercise ex){
         //ExercisePanel ePanel = new ePanel(ex.getTitle()), ex.getQuestion(), ex.getAnswerPanel()};
 //        gModel.setNewExercisePanel(ePanel);
         //hoofdPaneel = ePanel;
-        
+          
     }
+    
+    
     
     /**
      * initialiseer mogelijke type menuItems
      */
-    public void initialiseerTypeMenuItems(){
+    private void initialiseerTypeMenuItems(){
         nameList = gModel.getOefnTypes();
         for (int i = 0 ; i < nameList.size(); i ++){
             javax.swing.JMenuItem item = new javax.swing.JMenuItem(nameList.get(i));
@@ -104,10 +105,29 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
         
        
     
+    
+    /**
+     * luisteraar bij de Type Oefeningen menu items
+     * vraagt juiste NewExercisePanel, en plaatst die dan in het hoofdpaneel
+     */
     private class typeOefnListener implements ActionListener{
         public void actionPerformed(ActionEvent e){
             NewExercisePanel newExPanel = gModel.createNewExercisePanel(e);
-            hoofdPaneel.add(newExPanel);
+            org.jdesktop.layout.GroupLayout hoofdPaneelLayout = new org.jdesktop.layout.GroupLayout(hoofdPaneel);
+            hoofdPaneel.setLayout(hoofdPaneelLayout);
+            hoofdPaneelLayout.setHorizontalGroup(
+                hoofdPaneelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(hoofdPaneelLayout.createSequentialGroup()
+                    .add(newExPanel)
+                    .addContainerGap(922, Short.MAX_VALUE))
+            );
+            hoofdPaneelLayout.setVerticalGroup(
+                hoofdPaneelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(hoofdPaneelLayout.createSequentialGroup()
+                    .add(newExPanel)
+                    .addContainerGap(761, Short.MAX_VALUE))
+            );
+            hoofdPaneel.validate();
             
         }
     }
@@ -145,11 +165,11 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
         hoofdPaneel.setLayout(hoofdPaneelLayout);
         hoofdPaneelLayout.setHorizontalGroup(
             hoofdPaneelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 997, Short.MAX_VALUE)
+            .add(0, 831, Short.MAX_VALUE)
         );
         hoofdPaneelLayout.setVerticalGroup(
             hoofdPaneelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 784, Short.MAX_VALUE)
+            .add(0, 530, Short.MAX_VALUE)
         );
 
         oefeningMenu.setMnemonic('o');
@@ -210,8 +230,14 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
 
         helpMenu.setMnemonic('h');
         helpMenu.setText("Help");
-        infoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_I, java.awt.event.InputEvent.CTRL_MASK));
+        infoMenuItem.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F, java.awt.event.InputEvent.CTRL_MASK));
         infoMenuItem.setText("Info");
+        infoMenuItem.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                showInfoDialog(evt);
+            }
+        });
+
         helpMenu.add(infoMenuItem);
 
         onlineHelpMenuItem.setText("Online help raadplegen");
@@ -235,6 +261,10 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void showInfoDialog(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_showInfoDialog
+        gModel.showInfoDialog(this);
+    }//GEN-LAST:event_showInfoDialog
+
     private void oefnOplossen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oefnOplossen
         gModel.showSelectDialog(this);       
     }//GEN-LAST:event_oefnOplossen
@@ -257,18 +287,7 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
 //            }
 //        });
 //    }
-    
-
-    
-    
-    
-    
-//////////////////////////////////////////
-//                                      //
-//            Listeners                 //
-//                                      //
-//////////////////////////////////////////
-    
+     
     
 
     

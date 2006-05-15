@@ -31,7 +31,7 @@ public class GUImodel {
     private List<Exercise> selectOefnList;
     private List<String> typeNamesList;
     private DataConnection connection;
-    private Exercise shownExercise;
+    private Exercise lastShowedExercise;
     private ExerciseManagement exManagement;
 //    private ExercisePanel shownExercisePanel;
     private NewExercisePanel newExPanel;
@@ -42,9 +42,24 @@ public class GUImodel {
         connection = new DataConnection();
         typeNamesList = new ArrayList<String>();
         selectOefnList = new ArrayList<Exercise>();
+        lastShowedExercise = null;
+        exManagement = new ExerciseManagement();
     }
     
+    //++++++++++++++++++++++++++++++++++++++++++++++++++
+    /**
+     * bugs: -  bij sluiten reInlogDiaglog vertrekkend van teacher dan diagram sluiten resulteerd
+     *          in inloggen als student
+     *       -  nmonics werken niet
+     */
+    //++++++++++++++++++++++++++++++++++++++++++++++++++
     
+    
+    //////////////////////////////////////////
+    //                                      //
+    //          GETTERS EN SETTERS          //
+    //                                      //
+    //////////////////////////////////////////
     /**
      * instellen of we in leraarmode zijn of niet
      */
@@ -61,57 +76,26 @@ public class GUImodel {
     }
     
     /**
-     * weergeven van de inlogDialog
+     * geeft oefening terug die het laast getoont werd
      */
-    public void showInlogDialog(java.awt.Frame parent){
-        iDialog = new InlogDialog(parent, true);
-        if (iDialog.showInlogDialog()){
-            setTeacherMode(true);  
-        }else 
-            setTeacherMode(false);
+    
+    public Exercise getLastShowedExercise(){
+        return lastShowedExercise;
     }
     
     /**
-     * opnieuw inloggen
+     * slaat de huidig getoonde oefening op in veld lastShowedExercise
      */
-    public void opnieuwInloggen(java.awt.event.ActionEvent evt) {                                 
-        if (iDialog.showInlogDialog()){
-            setTeacherMode(true);  
-        }else 
-            setTeacherMode(false);
-    } 
+    public void setShowedExercise(Exercise newEx){
+        lastShowedExercise = newEx;
+    }
     
     /**
-     * weergeven van de selectDialog
-     */  
-    public void showSelectDialog(java.awt.Frame parent){
-        
-        connection.connect();
-        selectOefnList = connection.getAllExercises();
-        //selectNamesList = connection.getExerciseNames();
-        connection.close();
-        
-        
-        sDialog = new SelectDialog(parent, true, selectOefnList, this);
-        sDialog.setVisible(true);
-            
+     *  vraagt aan ExerciseManagment welke oefn focus zou moeten hebben
+     */
+    public Exercise getActiveExercise(){
+        return exManagement.getActiveExercise();
     }
-    
-    
-    public void addExercise(Exercise ex){
-        exManagement.setActiveExercise(ex);
-        
-    }
-    
-    public void setShownExercise(Exercise ex){
-        shownExercise = ex;
-        fireStateChanged();
-    }
-    
-    public Exercise getShownExercise(){
-        return shownExercise;
-    }
-    
     
     
     /**
@@ -135,6 +119,79 @@ public class GUImodel {
     }
     
     
+    
+    //////////////////////////////////////////
+    //                                      //
+    //    WEERGEVEN VAN DIALOOGVENSTERS     //
+    //                                      //
+    //////////////////////////////////////////
+    
+    /**
+     * weergeven van de inlogDialog
+     */
+    public void showInlogDialog(java.awt.Frame parent){
+        iDialog = new InlogDialog(parent, true);
+        if (iDialog.showInlogDialog()){
+            setTeacherMode(true);  
+        }else 
+            setTeacherMode(false);
+    }
+    
+    
+    /**
+     * weergeven van de selectDialog
+     */  
+    public void showSelectDialog(java.awt.Frame parent){
+        
+        connection.connect();
+        selectOefnList = connection.getAllExercises();
+        connection.close();
+        
+        sDialog = new SelectDialog(parent, true, selectOefnList, this);
+        sDialog.setVisible(true);       
+    }
+    
+    /**
+     * weergeven van de InfoDialog
+     */     
+    public void showInfoDialog(java.awt.Frame parent){
+        InfoDialog iDialog = new InfoDialog(parent,false);
+        iDialog.setVisible(true);
+    }
+    
+    
+    
+    //////////////////////////////////////////
+    //                                      //
+    //          ANDERE METHODEN             //
+    //                                      //
+    //////////////////////////////////////////
+    
+    /**
+     * opnieuw inloggen
+     */
+    public void opnieuwInloggen(java.awt.event.ActionEvent evt) {                                 
+        if (iDialog.showInlogDialog()){
+            setTeacherMode(true);  
+        }else 
+            setTeacherMode(false);
+    } 
+    
+    
+
+    /**
+     * Oefening toevoegen aan lijst van Active execise
+     * via exerciseManagement
+     */
+    
+    public void addExercise(Exercise ex){
+        exManagement.setActiveExercise(ex);
+        fireStateChanged();
+        
+    }
+   
+    
+    
     /**
      * nieuwe oefening maken
      */
@@ -150,28 +207,55 @@ public class GUImodel {
 //                    ;
 //            }
             /**
-             *  Hardcoded
+             *  Hardcoded 
+             *
+             * TODO genreLijst niet hardcoded? en type oefn doorgeven, zodat we weten hoe we oefn moeten opslaan
              */
-             //javax.swing.JPanel testPanel = new javax.swing.JPanel();
-             newExPanel = new NewExercisePanel();
+//             List<String> themaLijst = new ArrayList<String>();
+//             themaLijst.add("algemeen");
+//             themaLijst.add("exceptions");
+//             themaLijst.add("Java syntax");
+//             themaLijst.add("C++ Syntax");
+             
+             
+             newExPanel = new NewExercisePanel(this);
              return newExPanel;
              
     }
     
+
+    
+    /**
+     * Slaat de gecreëerde oefn op
+     */
    
+    public void saveNewExercise(String title, String thema, String vraag){
+        /**
+         * extra content nodig, nu hardcoded met multichoisexercise
+         *
+         */
+        
+        /**
+         * tijdelijk
+         */
+        List<String> possibilities = new ArrayList<String>();
+        int correctSolution = 1;
+        
+        
+        MultichoiceExercise mEx = new MultichoiceExercise(title, thema, vraag , possibilities , correctSolution  );
+        
+        connection.connect();
+        connection.addExercise(mEx);
+        connection.close();
+    }
     
-//    public void setNewExercisePanel(ExercisePanel ePanel){
-//        if(ePanel != shownExercisePanel){
-//            shownExercisePanel = ePanel;
-//            fireStateChanged();
-//        }
-//    }
-//    
-//    public ExercisePanel getShownExercisepanel(){
-//        return shownExercisePanel;
-//    }
+
     
-    
+    //////////////////////////////////////////
+    //                                      //
+    //          CHANGE EVENTHANDLING        //
+    //                                      //
+    //////////////////////////////////////////
     
     protected EventListenerList listenerList= new EventListenerList();
     

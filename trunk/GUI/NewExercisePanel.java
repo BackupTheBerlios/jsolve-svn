@@ -6,15 +6,20 @@
 
 package GUI;
 
+import java.util.List;
+
 /**
  *
  * @author  Kurt Deklerck
  */
 public class NewExercisePanel extends javax.swing.JPanel {
     
+    private GUImodel gModel;
     /** Creates new form NewExercisPanel */
-    public NewExercisePanel() {
+    public NewExercisePanel(GUImodel guiModel) {
         initComponents();
+        gModel = guiModel; 
+        
     }
     
     /** This method is called from within the constructor to
@@ -25,44 +30,47 @@ public class NewExercisePanel extends javax.swing.JPanel {
     // <editor-fold defaultstate="collapsed" desc=" Generated Code ">//GEN-BEGIN:initComponents
     private void initComponents() {
         titelLabel = new javax.swing.JLabel();
-        genreLabel = new javax.swing.JLabel();
+        themaLabel = new javax.swing.JLabel();
         vraagLabel = new javax.swing.JLabel();
-        genreBox = new javax.swing.JComboBox();
-        titleField = new javax.swing.JTextField();
+        themaBox = new javax.swing.JComboBox();
+        titleTextField = new javax.swing.JTextField();
         antwoordPanel = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        vraagTextArea = new javax.swing.JTextArea();
         antwoordLabel = new javax.swing.JLabel();
         toevoegButton = new javax.swing.JButton();
 
         titelLabel.setText("Titel:");
 
-        genreLabel.setText("Genre:");
+        themaLabel.setText("Thema:");
 
         vraagLabel.setText("Vraag:");
 
-        genreBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
-        titleField.setText("jTextField1");
+        themaBox.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "algemeen", "java exceptions", "java syntax", "C++ syntax", "GUI" }));
 
         org.jdesktop.layout.GroupLayout antwoordPanelLayout = new org.jdesktop.layout.GroupLayout(antwoordPanel);
         antwoordPanel.setLayout(antwoordPanelLayout);
         antwoordPanelLayout.setHorizontalGroup(
             antwoordPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 575, Short.MAX_VALUE)
+            .add(0, 805, Short.MAX_VALUE)
         );
         antwoordPanelLayout.setVerticalGroup(
             antwoordPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(0, 292, Short.MAX_VALUE)
         );
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        vraagTextArea.setColumns(20);
+        vraagTextArea.setRows(5);
+        jScrollPane1.setViewportView(vraagTextArea);
 
         antwoordLabel.setText("Antwoord:");
 
         toevoegButton.setText("Toevoegen");
+        toevoegButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                oefeningToevoegen(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -77,23 +85,24 @@ public class NewExercisePanel extends javax.swing.JPanel {
                         .addContainerGap()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                             .add(titelLabel)
-                            .add(genreLabel))
+                            .add(themaLabel))
                         .add(26, 26, 26)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(genreBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 216, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(titleField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE)))
+                            .add(themaBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 216, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                            .add(titleTextField, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 734, Short.MAX_VALUE)))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
                         .add(vraagLabel)
                         .add(26, 26, 26)
-                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 510, Short.MAX_VALUE))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 740, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(21, 21, 21)
-                        .add(antwoordLabel))
-                    .add(layout.createSequentialGroup()
-                        .add(178, 178, 178)
-                        .add(toevoegButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 242, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)))
+                        .add(antwoordLabel)))
                 .addContainerGap())
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(312, 312, 312)
+                .add(toevoegButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 242, Short.MAX_VALUE)
+                .add(275, 275, 275))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -101,11 +110,11 @@ public class NewExercisePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(titelLabel)
-                    .add(titleField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(titleTextField, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(genreLabel)
-                    .add(genreBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(themaLabel)
+                    .add(themaBox, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(7, 7, 7)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(vraagLabel)
@@ -119,19 +128,26 @@ public class NewExercisePanel extends javax.swing.JPanel {
                 .add(40, 40, 40))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void oefeningToevoegen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oefeningToevoegen
+        /**
+         * TODO nog extra gegevens doorzenden
+         */ 
+        gModel.saveNewExercise(titleTextField.getText(), (String) themaBox.getSelectedItem(), vraagTextArea.getText());
+    }//GEN-LAST:event_oefeningToevoegen
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel antwoordLabel;
     private javax.swing.JPanel antwoordPanel;
-    private javax.swing.JComboBox genreBox;
-    private javax.swing.JLabel genreLabel;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JComboBox themaBox;
+    private javax.swing.JLabel themaLabel;
     private javax.swing.JLabel titelLabel;
-    private javax.swing.JTextField titleField;
+    private javax.swing.JTextField titleTextField;
     private javax.swing.JButton toevoegButton;
     private javax.swing.JLabel vraagLabel;
+    private javax.swing.JTextArea vraagTextArea;
     // End of variables declaration//GEN-END:variables
     
 }
