@@ -1,8 +1,12 @@
 
 package Exercise;
+import java.awt.Insets;
+import java.awt.LayoutManager;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.BorderFactory;
+import javax.swing.JCheckBox;
 import javax.swing.JPanel;
 
 /**
@@ -65,7 +69,14 @@ public class MultichoiceExercise extends Exercise {
  * <p>Draws the answer panel of the exercise</p>
  */
 	public void draw(JPanel panel) {
-	// TODO
-	
+		JCheckBox[] box = new JCheckBox[possibilities.size()];
+		for (int i = 0; i < box.length; i++) {
+			box[i].setText(possibilities.get(i));
+			box[i].setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			box[i].setMargin(new Insets(0, 0, 0, 0));
+			panel.add(box[i]);
+		}	
+		
+		panel.validate();
 	} 
  }
