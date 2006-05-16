@@ -29,7 +29,7 @@ public class MultichoiceExercise extends Exercise {
  */
     private int correctSolution;
    
-    private JCheckBox[] chkbox;
+    private List<JCheckBox> chkbox;
     
     
 /**
@@ -61,29 +61,28 @@ public class MultichoiceExercise extends Exercise {
  */
     public List<String> validate() {
     	List<String> output = new ArrayList<String>();
-    	boolean correct = false;
     	
-    	for (int i = 0; i < chkbox.length; i++) {
-    		if (chkbox[i].isSelected() && (i == correctSolution))
-    			correct = true;
-    	}
+    	if (chkbox.get(correctSolution).isSelected())
+    	    output.add("Uw antwoord is juist.");
+    	else
+    		output.add("Uw antwoord is verkeerd.");
     	
-    	output.add((correct)?"Uw antwoord is juist.":"Uw antwoord is verkeerd.");
-        return null;
+        return output;
     }
     
 /**
  * <p>Draws the answer panel of the exercise</p>
  */
 	public void drawSolvePanel(JPanel panel) {
-		chkbox = new JCheckBox[possibilities.size()];
+		chkbox = new ArrayList<JCheckBox>();
 		
-		for (int i = 0; i < chkbox.length; i++) {
-			chkbox[i] = new JCheckBox();
-			chkbox[i].setText(possibilities.get(i));
-			chkbox[i].setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
-			chkbox[i].setMargin(new Insets(0, 0, 0, 0));
-			panel.add(chkbox[i]);
+		for (int i = 0; i < possibilities.size(); i++) {
+			JCheckBox box = new JCheckBox();
+			box.setText(possibilities.get(i));
+			box.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 0));
+			box.setMargin(new Insets(0, 0, 0, 0));
+			chkbox.add(box);
+			panel.add(box);
 		}	
 		
 		panel.validate();
