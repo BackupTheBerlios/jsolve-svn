@@ -66,6 +66,11 @@ public abstract class Exercise {
     public String getQuestion() {
         return question;
     } 
+    
+    /**
+     * <p>Puts the input from the add form in the exercise.</p>
+     */
+    public abstract void putInput();
 
 /**
  * <p>Returns a string representation of this Object</p>

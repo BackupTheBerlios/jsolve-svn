@@ -1,14 +1,13 @@
 
 package Exercise;
+import java.awt.GridLayout;
 import java.awt.Insets;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -29,7 +28,12 @@ public class MultichoiceExercise extends Exercise {
  */
     private int correctSolution;
    
+    /**
+     * <p>Variables representing the own add/solve panel.</p>
+     */
     private List<JCheckBox> chkbox;
+    private List<JTextField> txtfield;
+    private JTextField correctfield;
     
     
 /**
@@ -70,10 +74,11 @@ public class MultichoiceExercise extends Exercise {
         return output;
     }
     
-/**
- * <p>Draws the answer panel of the exercise</p>
- */
+    /**
+     * <p>Draws the answer panel of the exercise</p>
+ 	 */
 	public void drawSolvePanel(JPanel panel) {
+		panel.setLayout(new GridLayout(possibilities.size(), 1));
 		chkbox = new ArrayList<JCheckBox>();
 		
 		for (int i = 0; i < possibilities.size(); i++) {
@@ -92,38 +97,39 @@ public class MultichoiceExercise extends Exercise {
 	 * <p>Draws the add panel of the exercise</p>
 	 */
 	public void drawAddPanel(JPanel panel) {		
-		final JTextField[] txtfield = new JTextField[10];
-		for (int i = 0; i < txtfield.length; i++) {
-			txtfield[i] = new JTextField();
+		panel.setLayout(new GridLayout(11, 2));
+		txtfield = new ArrayList<JTextField>();
+
+		for (int i = 0; i < 10; i++) {
+			JLabel label = new JLabel();
+			label.setText("Antwoord "+(i+1)+":");
+			JTextField field = new JTextField();
+			field.setText("");
+			txtfield.add(field);
+			panel.add(label);
+			panel.add(field);
 		}
-		for (int i = 0; i < txtfield.length; i++) {
-			txtfield[i].setText("");
-			panel.add(txtfield[i]);
-		}
-		
-		JButton btnAdd = new JButton();
-		btnAdd.setText("Add");
-		btnAdd.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				for (int i = 0; i < 10; i++) {
-					if (!txtfield[i].getText().equals(""))
-						possibilities.add(txtfield[i].getText());
-				}
-			}
-		});
-		panel.add(btnAdd);
-		
-		final JTextField correctone = new JTextField();
-		panel.add(correctone);
-		JButton btnAddSol = new JButton();
-		btnAddSol.setText("add solution");
-		btnAddSol.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				correctSolution = Integer.valueOf(correctone.getText());
-			}
-		});
-		panel.add(btnAddSol);
-		
+				
+		JLabel label = new JLabel();
+		label.setText("Nummer van correcte oplossing:");
+		panel.add(label);
+		JTextField correctfield = new JTextField();
+		panel.add(correctfield);
+				
 		panel.validate();
 	}
+	
+	/**
+     * <p>Puts the input from the add form in the exercise.</p>
+     */
+    public void putInput() {
+    	possibilities.clear();
+    	
+    	for (JTextField field : txtfield) {
+    		if (!field.getText().equals(""))
+    			possibilities.add(field.getText());
+    	}
+    	
+    	correctSolution = Integer.parseInt(correctfield.getText());
+    }
 }
