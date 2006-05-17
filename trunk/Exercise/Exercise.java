@@ -4,8 +4,6 @@ import java.util.List;
 
 import javax.swing.JPanel;
 
-import ExerciseManagement.*;
-
 /**
  * Abstract class that defines the main funtions of an exercise object.
  */

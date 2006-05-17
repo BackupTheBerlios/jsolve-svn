@@ -87,11 +87,10 @@ public class ExerciseManagement {
     } 
 
 /**
- * Dummy
- * 
+ * Validates the current exercice.
  */
     public List<String> validateExercise() {        
-        List comments = lijst.get(index).validate();
+        List<String> comments = lijst.get(index).validate();
         return comments;
     } 
  }
