@@ -27,6 +27,7 @@ public class ExerciseManagement {
      */
     public ExerciseManagement() {
         list = new ArrayList<Exercise>();
+        index = 0;
     }
 
     /**
