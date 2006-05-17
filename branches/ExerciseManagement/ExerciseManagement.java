@@ -46,14 +46,14 @@ public class ExerciseManagement {
         if(list.size() == 0)
         	return null;
         else
-        	return list.get(0);
+        	return list.get(index);
     } 
 
     /**
      * Adds a new exercise to the list
      * @param new exercise
      */
-    public void addExercise(Exercise ex) {        
+    public void addExercise(Exercise ex) { 
         list.add(ex);
     } 
     
@@ -61,7 +61,7 @@ public class ExerciseManagement {
      * Changes the active exercise.
      * @param index of new exercise
      */
-    public void setActiveExercise(int index) {
+    public void setIndex(int index) {
     	this.index = index;
     }
 
@@ -72,6 +72,14 @@ public class ExerciseManagement {
     public List<Exercise> getList() {
         return list;
     } 
+    
+    /**
+     * Returns the index
+     * @return index
+     */
+    public int getIndex() {
+    	return index;
+    }
 
     /**
      * Sets a new sequence of exercises to solve.
