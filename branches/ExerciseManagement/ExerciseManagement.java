@@ -1,109 +1,118 @@
-
 package ExerciseManagement;
+
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
 import Exercise.Exercise;
-import java.util.ArrayList;
 
 /**
- * <p>Manages the sequence of exercises to be solved.
- * The functionality of this class in the demo is minimal, since there aren't any sequences.</p>
- * 
- * 
+ * Manages the sequence of exercises to be solved.
+ * The functionality of this class in the demo is minimal, since there aren't any sequences. * 
  */
 public class ExerciseManagement {
 
-/**
- * <p>A list with all loaded exercices.</p>
- */
-    private List<Exercise> lijst;
+	/**
+	 * A list with all loaded exercices.
+	 */
+    private List<Exercise> list;
 
-/**
- * <p>The index of the currently active exercise from the list.</p>
- * 
- */
+    /**
+     * The index of the currently active exercise from the list.
+     */
     private int index;
     
-    
+    /**
+     * Constructor
+     */
     public ExerciseManagement() {
-        lijst = new ArrayList<Exercise>();
+        list = new ArrayList<Exercise>();
     }
 
-/**
- * Dummy
- */
+    /**
+     * Returns the number of active exercises at this moment. This is a dummyfunction.
+     * @return number of active exercises at this moment 
+     */
     public int getActiveExerciseCount() {        
         
         return 0;
     } 
 
-/**
- * <p>Returns the active exercise</p>
- */
+    /**
+     * Returns the active exercise
+     * @return the active exercise
+     */
     public Exercise getActiveExercise() {        
-        if(lijst.size() == 0)
+        if(list.size() == 0)
         	return null;
         else
-        	return lijst.get(0);
+        	return list.get(0);
     } 
 
-/**
- * <p>Adds a new exercise to the list</p>
- */
+    /**
+     * Adds a new exercise to the list
+     * @param new exercise
+     */
     public void addExercise(Exercise ex) {        
-        lijst.add(ex);
+        list.add(ex);
     } 
     
-/**
- * <p>Changes the active exercise.</p>
- */
+    /**
+     * Changes the active exercise.
+     * @param index of new exercise
+     */
     public void setActiveExercise(int index) {
     	this.index = index;
     }
 
-/**
- * <p>Returns the sequence of exercises</p>
- */
+    /**
+     * Returns the sequence of exercises
+     * @return list of exercises
+     */
     public List<Exercise> getList() {
-        return lijst;
+        return list;
     } 
 
-/**
- * <p>Sets a new sequence of exercises to solve.</p>
- */
-    public void setList(List<Exercise> lijst) {        
-        this.lijst = lijst;
+    /**
+     * Sets a new sequence of exercises to solve.
+     * @param new list of exercises
+     */
+    public void setList(List<Exercise> list) {        
+        this.list = list;
     } 
     
- /**
-  * <p>Returns the size of the list.</p>
-  */
+    /**
+     * Returns the size of the list.
+     * @return size of the list
+     */
     public int getListSize() {
-    	return lijst.size();
+    	return list.size();
     }
 
-/**
- * <p>Dummy</p>
- */
-    public Map<String,List<Integer>> saveList(List<Exercise> lijst) {        
+    /**
+     * Saves the list of exercises.
+     * Dummymethod
+     */
+    public Map<String,List<Integer>> saveList(List<Exercise> list) {        
         
         return null;
     } 
 
-/**
- * Dummy
- */
-    public List<Exercise> loadList(Map<String,List<Integer>> lijst) {        
+    /**
+     * Loads the list of exercises
+     * Dummymethod
+     */
+    public List<Exercise> loadList(Map<String,List<Integer>> list) {        
         
         return null;
     } 
 
-/**
- * Validates the current exercice.
- */
+    /**
+     * Validates the current exercise.
+     * @return list of strings containing intelligent feedback
+     */
     public List<String> validateExercise() {        
-        List<String> comments = lijst.get(index).validate();
+        List<String> comments = list.get(index).validate();
         return comments;
     } 
  }
