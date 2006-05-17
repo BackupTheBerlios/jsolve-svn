@@ -1,23 +1,35 @@
-
 package main;
-import EventManagement.*;
-import ExerciseManagement.*;
-import GUI.*;
-import Storage.*;
+
+import GUI.*;/*
+
+ * Main.java
+ *
+ * Created on 7 mei 2006, 10:41
+ *
+ * To change this template, choose Tools | Template Manager
+ * and open the template in the editor.
+ */
+
 
 /**
- * 
- * 
+ *
+ * @author Kurt Deklerck
  */
 public class JSolve {
-
-/**
- * <p>Does ...</p>
- * 
- * 
- * @param args 
- */
-    public void main(String[] args) {        
-        // your code here
-    } 
- }
+    
+    /** Creates a new instance of Main */
+    public JSolve() {
+        
+    }
+    
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String[] args) {
+       
+       GUImodel gModel = new GUImodel();
+       HoofdVenster hoofdVenster = new HoofdVenster(gModel); 
+       
+    }
+    
+}
