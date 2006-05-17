@@ -22,7 +22,8 @@ public class SelectDialog extends javax.swing.JDialog {
     private List<String> themes;
     //private javax.swing.JList selectNamenList;
     private GUImodel gModel;
-    
+    private HoofdVenster hVenster;
+    //private java.awt.Frame hVenster;
     
     /** Creates new form SelectDialog */
     
@@ -31,8 +32,9 @@ public class SelectDialog extends javax.swing.JDialog {
      * TODO eventueel enkel namen meegeven, en dan namen adden, ipv namen eerst uit oefn halen
      */
     
-    public SelectDialog(java.awt.Frame parent, boolean modal, List<Exercise> selectList,List<String> typeList, List<String> themeList, GUImodel model) {
+    public SelectDialog(/*java.awt.Frame*/HoofdVenster parent, boolean modal, List<Exercise> selectList,List<String> typeList, List<String> themeList, GUImodel model) {
         super(parent, modal);
+        hVenster = parent;
         sList = selectList;
         types = typeList;
         themes = themeList;
@@ -224,7 +226,11 @@ public class SelectDialog extends javax.swing.JDialog {
         }
         
         gModel.addExercises( selectedNamen);
+        hVenster.showExerciseScreen();
+        //gModel.showActiveExercise(hVenster);
+        gModel.setShowExerces(true);
         setVisible(false);
+        gModel.fireStateChanged();
     }//GEN-LAST:event_oefnOpenen
     
     /**

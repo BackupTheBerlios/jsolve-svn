@@ -91,14 +91,25 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
     
     public void stateChanged(ChangeEvent e){
         editorMenu.setVisible(gModel.getTeacherMode());
-        if ( gModel.getLastShowedExercise()!= gModel.getActiveExercise()){
+        if ( gModel.getShowExercise() && gModel.getLastShowedExercise()!= gModel.getActiveExercise() ){
             Exercise ex = gModel.getActiveExercise();
             showExercise(ex);
         }
         
+        
         if (gModel.getLastShowedExercise() != null){
             saveMenuItem.setVisible(true);
         }
+        
+        if (jButton1.isEnabled() != gModel.getButtonState("vorige")){
+            jButton1.setEnabled(gModel.getButtonState("vorige"));
+        }
+        if (jButton2.isEnabled() != gModel.getButtonState("volgende")){
+            jButton2.setEnabled(gModel.getButtonState("volgende"));
+        } 
+        validate();
+        repaint();
+        
     }
     
     
@@ -106,7 +117,14 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
      *  geeft oefening weer in hoofdpaneel
      */
     public void showExercise(Exercise ex){
-        //ExercisePanel ePanel = new ePanel(ex.getTitle()), ex.getQuestion(), ex.getAnswerPanel()};
+        ExercisePanel exPanel = gModel.getExercisePanel(ex);
+        exercisePanel.add(exPanel);
+        showExerciseScreen();
+        //validate();
+        //repaint();
+        
+
+//ExercisePanel ePanel = new ePanel(ex.getTitle()), ex.getQuestion(), ex.getAnswerPanel()};
 //        gModel.setNewExercisePanel(ePanel);
         //hoofdPaneel = ePanel;
           
@@ -125,6 +143,13 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
         exercisePanel.removeAll();
         validate();
         repaint();
+    }
+    
+    public void showExerciseScreen(){
+        jSeparator1.setVisible(true);
+        navigatePanel.setVisible(true);
+        //validate();
+        //repaint();
     }
     
     
@@ -390,7 +415,7 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
     }//GEN-LAST:event_showInfoDialog
 
     private void oefnOplossen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oefnOplossen
-        gModel.showSelectDialog(this); 
+        gModel.showSelectDialog(getThisVenster()); 
         validate();
     }//GEN-LAST:event_oefnOplossen
 

@@ -4,6 +4,9 @@
  * Created on 11 mei 2006, 18:49
  */
 package GUI;
+
+import Exercise.Exercise;
+import javax.swing.JPanel;
 /**
  *
  * @author  Kurt Deklerck
@@ -11,11 +14,15 @@ package GUI;
 public class ExercisePanel extends javax.swing.JPanel {
     
     /** Creates new form ExercisePanel */
-    public ExercisePanel(String titelString, String vraagString, String antwoordString, javax.swing.JPanel antwoord) {
+    public ExercisePanel(Exercise ex) {
         initComponents();
-        titelLabel.setText(titelString);
-        vraag.setText(vraagString);
-        antwoordPanel = antwoord;
+        titelLabel.setText(ex.getTitle());
+        vraag.setText(ex.getQuestion());
+        JPanel testPanel = new JPanel();
+        jPanel1.add(testPanel);
+        validate();
+        repaint();
+        
     }
     
     /** This method is called from within the constructor to
@@ -33,6 +40,7 @@ public class ExercisePanel extends javax.swing.JPanel {
         jScrollPane1 = new javax.swing.JScrollPane();
         feedbackList = new javax.swing.JList();
         antwoordPanel = new javax.swing.JPanel();
+        jPanel1 = new javax.swing.JPanel();
         valideerButton = new javax.swing.JButton();
 
         titelLabel.setFont(new java.awt.Font("Tahoma", 1, 24));
@@ -68,11 +76,11 @@ public class ExercisePanel extends javax.swing.JPanel {
         antwoordPanel.setLayout(antwoordPanelLayout);
         antwoordPanelLayout.setHorizontalGroup(
             antwoordPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 776, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
         );
         antwoordPanelLayout.setVerticalGroup(
             antwoordPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(0, 265, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         valideerButton.setText("Valideer");
@@ -112,7 +120,7 @@ public class ExercisePanel extends javax.swing.JPanel {
                 .add(antwoordPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(valideerButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 18, Short.MAX_VALUE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 273, Short.MAX_VALUE)
                 .add(feedbackPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -124,6 +132,7 @@ public class ExercisePanel extends javax.swing.JPanel {
     private javax.swing.JPanel antwoordPanel;
     private javax.swing.JList feedbackList;
     private javax.swing.JPanel feedbackPanel;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel titelLabel;
     private javax.swing.JButton valideerButton;

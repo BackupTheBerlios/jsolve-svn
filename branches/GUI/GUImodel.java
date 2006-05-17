@@ -35,6 +35,7 @@ public class GUImodel {
     private ExerciseManagement exManagement;
 //    private ExercisePanel shownExercisePanel;
     private NewExercisePanel newExPanel;
+    private Boolean showExercise;
     
     
     
@@ -44,7 +45,7 @@ public class GUImodel {
         selectOefnList = new ArrayList<Exercise>();
         lastShowedExercise = null;
         exManagement = new ExerciseManagement();
-        
+        showExercise = false;
 
         
         
@@ -60,6 +61,7 @@ public class GUImodel {
      * TODO: -  mogelijkheid om nieuw thema in te voegen bij maken nieuwe oefn
      *       -  zorgen dat na toevoegen alles gecleared is
      *       -  dynamisch genres tonen bij creëren nieuwe oefn
+     *       -  getOefnType is hardcoded +  getTheses nog niet
      */
     //++++++++++++++++++++++++++++++++++++++++++++++++++
     
@@ -75,6 +77,39 @@ public class GUImodel {
     public void setTeacherMode(boolean teacher){
         teacherMode = teacher;
         fireStateChanged();
+    }
+    
+    /**
+     * geeft weer of de knop enabled moet zijn of niet
+     */
+    public boolean getButtonState(String richting){
+        boolean state = true;
+        if (richting.equals("vorige")){
+            if(exManagement.getIndex()<1)
+                state = false;
+            else
+                state = true;
+        }
+        else if(richting.equals("volgende")){
+            if(exManagement.getIndex()>= exManagement.getListSize()-1)
+                state = false;
+            else
+                state = true;
+        }
+        
+        return state;
+    }
+    
+    /**
+     * bolean opvragen die zegt of er al of niet exercise moeten weergegeven worden
+     */
+    public boolean getShowExercise(){
+        return showExercise;
+    }
+    
+    
+    public void setShowExerces(boolean status){
+        showExercise = status;
     }
     
     /**
@@ -128,6 +163,14 @@ public class GUImodel {
     }
     
     
+    /**
+     * geeft een ExercisePanel terug gemaakt met de opgegeven oefn
+     */
+    public ExercisePanel getExercisePanel(Exercise ex){
+        ExercisePanel exPanel = new ExercisePanel(ex);
+        return exPanel;
+    }
+    
     
     //////////////////////////////////////////
     //                                      //
@@ -150,7 +193,7 @@ public class GUImodel {
     /**
      * weergeven van de selectDialog
      */  
-    public void showSelectDialog(java.awt.Frame parent){
+    public void showSelectDialog(/*java.awt.Frame*/HoofdVenster venster){
         
         connection.connect();
         selectOefnList = connection.getAllExercises();
@@ -158,7 +201,7 @@ public class GUImodel {
         List<String> themes = connection.getThemes();
         connection.close();
         
-        sDialog = new SelectDialog(parent, true, selectOefnList, types, themes, this);
+        sDialog = new SelectDialog(venster, true, selectOefnList, types, themes, this);
         sDialog.setVisible(true);       
     }
     
@@ -199,16 +242,16 @@ public class GUImodel {
     public void addExercises(List<String> oefnNamen){
         connection.connect();
         Exercise startEx = connection.getExercise(oefnNamen.get(0));
+        int index = exManagement.getListSize();
         exManagement.addExercise(startEx);
-        int index = exManagement.getListSize() +1;
-        exManagement.setActiveExercise(index);
+        exManagement.setIndex(index);
         for(int i= 1; i< oefnNamen.size(); i ++){
             Exercise ex = connection.getExercise(oefnNamen.get(i));
             exManagement.addExercise(ex);
         }
         connection.close();
         
-        fireStateChanged();
+        //fireStateChanged();
         
     }
     
@@ -223,17 +266,17 @@ public class GUImodel {
          *       ik moet dus TODO Ttim zien hoe groot lijst van oefn is om zo index mee te vergelijken
          *       normaal, zal door firestate changed na veranderen index, een andere indew automatisch getoont worden
          */
-        
+        int newIndex=0;
         if (command.equals("vorige")){
-            ;
+            newIndex = exManagement.getIndex()+ 1;
         }else if(command.equals("volgende")){
-            ;
+            newIndex = exManagement.getIndex()- 1;
         }
+        exManagement.setIndex(newIndex);
+        fireStateChanged();
     }
    
-    public void clearScreen(java.awt.Frame hoofdVenster){
-          
-    }
+    
     
     /**
      * nieuwe oefening maken
@@ -268,6 +311,11 @@ public class GUImodel {
              
     }
     
+//    public void showActiveExercise(HoofdVenster hVenster){
+//        
+//        
+//    }
+    
 
     
     /**
@@ -275,10 +323,6 @@ public class GUImodel {
      */
    
     public void saveExercise(Exercise ex){
-        
-               
-        
-       
         
         connection.connect();
         connection.addExercise(ex);

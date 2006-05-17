@@ -8,7 +8,7 @@ package GUI;
 
 import Exercise.AddPanel;
 import Exercise.Exercise;
-import Exercise.MultiCreateAnswerPanel;
+
 import Exercise.MultichoiceExercise;
 
 /**
