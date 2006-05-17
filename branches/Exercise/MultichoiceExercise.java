@@ -53,14 +53,6 @@ public class MultichoiceExercise extends Exercise {
     	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
     	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
     }
-    
-    /**
-     * Returns the panel used for adding a new exercise.
-     * @return panel used for adding a new exercise
-     */    
-    public AddPanel getAddPanel(){
-        return addPanel;
-    }
 
     /**
      * <p>Tests if the given answer is true and calls the right tests.</p>

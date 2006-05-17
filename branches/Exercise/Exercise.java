@@ -70,6 +70,14 @@ public abstract class Exercise {
     public void setTheme(String theme) {
     	this.theme = theme;
     }
+    
+    /**
+     * Returns the panel used for adding a new exercise.
+     * @return panel used for adding a new exercise
+     */    
+    public AddPanel getAddPanel(){
+        return addPanel;
+    }
 
     /**
      * <p>Returns a string representation of this Object</p>
