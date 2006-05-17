@@ -110,8 +110,16 @@ public abstract class Exercise {
      * Returns the panel used for adding a new exercise.
      * @return panel used for adding a new exercise
      */    
-    public AddPanel getAddPanel(){
+    public AddPanel getAddPanel() {
         return addPanel;
+    }
+    
+    /**
+     * Returns the panel used for solving a new exercise.
+     * @return panel used for solving a new exercise
+     */
+    public SolvePanel getSolvePanel() {
+    	return solvePanel;
     }
 
     /**
