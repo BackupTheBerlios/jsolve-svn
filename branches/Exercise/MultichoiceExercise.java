@@ -23,6 +23,8 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(){
         super("","","");
+        possibilities = new ArrayList<String>();
+        correctSolution = 0;
         addPanel = new MultichoiceAddPanel();
         solvePanel = new MultichoiceSolvePanel();
     }
@@ -35,6 +37,10 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(String title, String theme, String question) {
     	super(title, theme, question);
+    	possibilities = new ArrayList<String>();
+    	correctSolution = 0;
+    	addPanel = new MultichoiceAddPanel();
+    	solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
@@ -49,12 +55,17 @@ public class MultichoiceExercise extends Exercise {
     	super(title,theme,question);
     	this.possibilities = possibilities;
     	this.correctSolution = correctSolution;
+    	addPanel = new MultichoiceAddPanel();
+    	solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
      * Makes sure this instant is consistant with inputted info.
      */
     public void writeInput() {
+    	if (addPanel == null)
+    		throw new NullPointerException("No add panel found!");
+    	
     	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
     	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
     }
@@ -64,6 +75,9 @@ public class MultichoiceExercise extends Exercise {
      * @return List<String> list of strings with intelligent feedback
      */
     public List<String> validate() {
+    	if (solvePanel == null)
+    		throw new NullPointerException("No solve panel found!");
+    	
     	List<String> output = new ArrayList<String>();
     	
     	if (((MultichoiceSolvePanel) solvePanel).getSelected() == correctSolution)
@@ -80,9 +94,12 @@ public class MultichoiceExercise extends Exercise {
      * @return true if both MultichoiceExercises are equal
      */
     public boolean equals(MultichoiceExercise ex) {
-    	return (this.possibilities.equals(ex.possibilities)
-    			&& (this.correctSolution == ex.correctSolution)
-    			&& (ex.getClass() == this.getClass()));
+    	if (ex == null)
+    		return (this.possibilities.equals(ex.possibilities)
+    				&& (this.correctSolution == ex.correctSolution)
+    				&& (ex.getClass() == this.getClass()));
+    	else
+    		return false;
     }
 }
 

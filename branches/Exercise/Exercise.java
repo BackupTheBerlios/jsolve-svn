@@ -53,7 +53,7 @@ public abstract class Exercise {
      * Tests if the given answer is true and calls the right tests.
      * @return List of strings containing intelligent feedback 
      */
-    public abstract List<String> validate();
+    public abstract List<String> validate() throws NullPointerException;
     
     /**
      * Returns the theme of the exercise
@@ -84,7 +84,8 @@ public abstract class Exercise {
      * @param title new title
      */
     public void setTitle(String title) {
-    	this.title = title;
+    	if (title != null && !title.equals(""))
+    		this.title = title;
     }
     
     /**
@@ -92,7 +93,8 @@ public abstract class Exercise {
      * @param question new question
      */
     public void setQuestion(String question) {
-    	this.question = question;
+    	if (question != null && !question.equals(""))
+    		this.question = question;
     }
     
     /**
@@ -100,7 +102,8 @@ public abstract class Exercise {
      * @param theme new theme
      */
     public void setTheme(String theme) {
-    	this.theme = theme;
+    	if (theme != null && !theme.equals(""))
+    		this.theme = theme;
     }
     
     /**
@@ -122,7 +125,7 @@ public abstract class Exercise {
     /**
      * Call this to make sure this instant is consistant with inputted info.
      */
-    public abstract void writeInput();
+    public abstract void writeInput() throws NullPointerException;
     
     /**
      * Returns whether this Exercise is equal to the given Exercise.
