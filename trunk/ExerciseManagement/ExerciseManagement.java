@@ -49,12 +49,18 @@ public class ExerciseManagement {
     } 
 
 /**
- * <p>Adds a new exercise to the sequence and makes it active</p>
+ * <p>Adds a new exercise to the list</p>
  */
-    public void setActiveExercise(Exercise ex) {        
+    public void addExercise(Exercise ex) {        
         lijst.add(ex);
-        index = lijst.size();
     } 
+    
+/**
+ * <p>Changes the active exercise.</p>
+ */
+    public void setActiveExercise(int index) {
+    	this.index = index;
+    }
 
 /**
  * <p>Returns the sequence of exercises</p>
@@ -69,6 +75,13 @@ public class ExerciseManagement {
     public void setList(List<Exercise> lijst) {        
         this.lijst = lijst;
     } 
+    
+ /**
+  * <p>Returns the size of the list.</p>
+  */
+    public int getListSize() {
+    	return lijst.size();
+    }
 
 /**
  * <p>Dummy</p>
