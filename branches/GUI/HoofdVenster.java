@@ -124,6 +124,7 @@ public class HoofdVenster extends javax.swing.JFrame implements ChangeListener{
         navigatePanel.setVisible(false);
         exercisePanel.removeAll();
         validate();
+        repaint();
     }
     
     

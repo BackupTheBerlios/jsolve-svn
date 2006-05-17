@@ -196,11 +196,15 @@ public class GUImodel {
      * via exerciseManagement
      */
     
-    public void addExercises(String[] oefnNamen){
+    public void addExercises(List<String> oefnNamen){
         connection.connect();
-        for(int i= 0; i< oefnNamen.length; i ++){
-            Exercise ex = connection.getExercise(oefnNamen[i]);
-            exManagement.setActiveExercise(ex);
+        Exercise startEx = connection.getExercise(oefnNamen.get(0));
+        exManagement.addExercise(startEx);
+        int index = exManagement.getListSize() +1;
+        exManagement.setActiveExercise(index);
+        for(int i= 1; i< oefnNamen.size(); i ++){
+            Exercise ex = connection.getExercise(oefnNamen.get(i));
+            exManagement.addExercise(ex);
         }
         connection.close();
         
@@ -255,9 +259,9 @@ public class GUImodel {
 //             themaLijst.add("exceptions");
 //             themaLijst.add("Java syntax");
 //             themaLijst.add("C++ Syntax");
-             List<String> testList = new ArrayList<String>();
+             //List<String> testList = new ArrayList<String>();
              //MultichoiceExercise leegEx = new MultichoiceExercise("","","", testList,1);//(MultichoiceExercise)connection.getExercise("multidum");
-             MultichoiceExercise2 leegEx = new MultichoiceExercise2();
+             MultichoiceExercise leegEx = new MultichoiceExercise();
              newExPanel = new NewExercisePanel(this, leegEx, hoofdVenster);
              //NewExercisePanel3 panel3 = new NewExercisePanel3();
              return newExPanel;
@@ -270,14 +274,14 @@ public class GUImodel {
      * Slaat de gecreëerde oefn op
      */
    
-    public void saveNewExercise(String title, String thema, String vraag, List<String> possibilities, int correctSolution){
+    public void saveExercise(Exercise ex){
         
                
         
-        MultichoiceExercise mEx = new MultichoiceExercise(title, thema, vraag , possibilities , correctSolution  );
+       
         
         connection.connect();
-        connection.addExercise(mEx);
+        connection.addExercise(ex);
         connection.close();
     }
     

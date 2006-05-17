@@ -6,8 +6,10 @@
 
 package GUI;
 
+import Exercise.AddPanel;
+import Exercise.Exercise;
 import Exercise.MultiCreateAnswerPanel;
-import Exercise.MultichoiceExercise2;
+import Exercise.MultichoiceExercise;
 
 /**
  *
@@ -16,16 +18,16 @@ import Exercise.MultichoiceExercise2;
 public class NewExercisePanel extends javax.swing.JPanel {
     
     private GUImodel gModel;
-    private MultichoiceExercise2 mEx;
+    private Exercise ex;
     private HoofdVenster hoofdVenster;
     /** Creates new form NewExercisPanel */
-    public NewExercisePanel(GUImodel guiModel, MultichoiceExercise2 mExercise, HoofdVenster hoofdV) {
+    public NewExercisePanel(GUImodel guiModel, MultichoiceExercise mExercise, HoofdVenster hoofdV) {
         initComponents();
         gModel = guiModel; 
-        mEx = mExercise;
+        ex = mExercise;
         hoofdVenster = hoofdV;
         
-        MultiCreateAnswerPanel answerPanel = mEx.getCreateAnswerPanel();
+        AddPanel answerPanel = ex.getAddPanel();
         jPanel3.add(answerPanel);
         
         /**
@@ -171,8 +173,11 @@ public class NewExercisePanel extends javax.swing.JPanel {
          */ 
 //        bert
 //        mEx.putInput();
-        
-        gModel.saveNewExercise(titleTextField.getText(), (String) themaBox.getSelectedItem(), vraagTextArea.getText(),mEx.getPossibilities(),mEx.getCorrectSolution());
+        ex.writeInput();
+        ex.setTitle(titleTextField.getText());
+        ex.setTheme((String) themaBox.getSelectedItem());
+        ex.setQuestion(vraagTextArea.getText());
+        gModel.saveExercise(ex);
         hoofdVenster.clearScreen();
     }//GEN-LAST:event_oefeningToevoegen
     

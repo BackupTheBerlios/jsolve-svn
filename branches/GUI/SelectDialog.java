@@ -7,6 +7,7 @@
 package GUI;
 
 import Exercise.*;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
 
@@ -213,7 +214,15 @@ public class SelectDialog extends javax.swing.JDialog {
     private void oefnOpenen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oefnOpenen
        
         // TODO  meerdere oefeningen openen
-        String[] selectedNamen = (String[]) jList3.getSelectedValues();
+        DefaultListModel model = (DefaultListModel) jList3.getModel();
+        int[] geselecteerdeIndexen = jList3.getSelectedIndices(); 
+        List<String> selectedNamen = new ArrayList<String>();
+        //String[] selectedNamen = (String[]) jList3.getSelectedValues();
+        for( int i =0 ; i< geselecteerdeIndexen.length; i ++ ){
+            String naam = (String) model.get(i);
+            selectedNamen.add(naam);
+        }
+        
         gModel.addExercises( selectedNamen);
         setVisible(false);
     }//GEN-LAST:event_oefnOpenen
