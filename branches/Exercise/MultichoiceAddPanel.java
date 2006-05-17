@@ -3,12 +3,21 @@ package Exercise;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.swing.ButtonGroup;
+import javax.swing.JLabel;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+
+import org.jdesktop.layout.GroupLayout.ParallelGroup;
+import org.jdesktop.layout.GroupLayout.SequentialGroup;
+
 public class MultichoiceAddPanel extends AddPanel {
     
     /**
 	 * Generated serialversion id
 	 */
 	private static final long serialVersionUID = -7974016593794838344L;
+	private static final int AMOUNT = 10;
 	
 	/**
      * Constructor
@@ -24,10 +33,8 @@ public class MultichoiceAddPanel extends AddPanel {
     public List<String> getPossibilities(){
         List<String> output = new ArrayList<String>();
         
-        output.add(jTextField1.getText());
-        output.add(jTextField2.getText());
-        output.add(jTextField3.getText());
-        output.add(jTextField4.getText());
+        for (int i = 0; i < textfield.length; i++)
+        	output.add(textfield[i].getText());
         
         return output;
     }
@@ -37,114 +44,82 @@ public class MultichoiceAddPanel extends AddPanel {
      * @return index (>= 0) of correct solution
      */
     public int getCorrectSolution(){
-        /**
-         * hardcoded
-         */
-        int juist;
-        if (jRadioButton1.isSelected()){
-            juist = 1;
-        }else if (jRadioButton2.isSelected()){
-            juist = 2;
-        }else if (jRadioButton3.isSelected()){
-            juist = 3;
-        }else {
-            juist = 4;
+        for (int i = 0; i < radiobutton.length; i++) {
+        	if (radiobutton[i].isSelected())
+        		return i;
         }
-        return juist;
+        return 0;
     }
     
     /** 
      * This method is called from within the constructor to initialize the form.
      */
     private void initComponents() {
-        buttonGroup1 = new javax.swing.ButtonGroup();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jTextField3 = new javax.swing.JTextField();
-        jTextField4 = new javax.swing.JTextField();
-        jRadioButton1 = new javax.swing.JRadioButton();
-        jRadioButton2 = new javax.swing.JRadioButton();
-        jRadioButton3 = new javax.swing.JRadioButton();
-        jRadioButton4 = new javax.swing.JRadioButton();
-        jLabel1 = new javax.swing.JLabel();
+    	textfield = new JTextField[AMOUNT];
+    	radiobutton = new JRadioButton[textfield.length];
+    	for (int i = 0; i < textfield.length; i++) {
+    		textfield[i] = new JTextField();
+    		radiobutton[i] = new JRadioButton();
+    	}
+    	
+        buttonGroup = new ButtonGroup();
+        label = new JLabel();
 
-        buttonGroup1.add(jRadioButton1);
-        jRadioButton1.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jRadioButton1.setMargin(new java.awt.Insets(0, 0, 0, 0));
+        for (int i = 0; i < radiobutton.length; i++) {
+        	buttonGroup.add(radiobutton[i]);
+        	radiobutton[i].setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
+        	radiobutton[i].setMargin(new java.awt.Insets(0, 0, 0, 0));
+        }
 
-        buttonGroup1.add(jRadioButton2);
-        jRadioButton2.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jRadioButton2.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        buttonGroup1.add(jRadioButton3);
-        jRadioButton3.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jRadioButton3.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        buttonGroup1.add(jRadioButton4);
-        jRadioButton4.setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
-        jRadioButton4.setMargin(new java.awt.Insets(0, 0, 0, 0));
-
-        jLabel1.setText("Vul verschillende opties in, in duid het juiste antwoord aan.");
+        label.setText("Vul verschillende opties in, in duid het juiste antwoord aan.");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
+        
+        ParallelGroup pg1 = layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING);
+        for (int i = 0; i < textfield.length; i++)
+        	pg1.add(org.jdesktop.layout.GroupLayout.TRAILING, textfield[i], org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE);
+        ParallelGroup pg2 = layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING);
+        for (int i = 0; i < radiobutton.length; i++)
+        	pg2.add(radiobutton[i]);
+        SequentialGroup seq1 = layout.createSequentialGroup();
+        seq1.add(113, 113, 113);
+        seq1.add(pg2);
+        seq1.add(21, 21, 21);
+        seq1.add(pg1);
+        SequentialGroup seq2 = layout.createSequentialGroup();
+        seq2.addContainerGap();
+        seq2.add(label, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE);
+        ParallelGroup pg3 = layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING);
+        pg3.add(org.jdesktop.layout.GroupLayout.LEADING, seq2);
+        pg3.add(seq1);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                    .add(org.jdesktop.layout.GroupLayout.LEADING, layout.createSequentialGroup()
-                        .addContainerGap()
-                        .add(jLabel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 570, Short.MAX_VALUE))
-                    .add(layout.createSequentialGroup()
-                        .add(113, 113, 113)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jRadioButton1)
-                            .add(jRadioButton2)
-                            .add(jRadioButton3)
-                            .add(jRadioButton4))
-                        .add(21, 21, 21)
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField2, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField3, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.TRAILING, jTextField4, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 435, Short.MAX_VALUE))))
-                .add(58, 58, 58))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(layout.createSequentialGroup()
-                .add(jLabel1)
-                .add(15, 15, 15)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jRadioButton1))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jRadioButton2))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField3, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jRadioButton3))
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                    .add(jTextField4, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                    .add(jRadioButton4))
-                .addContainerGap(45, Short.MAX_VALUE))
-        );
+                layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                    .add(pg3)
+                    .add(58, 58, 58))
+            );
+        
+        SequentialGroup seq3 = layout.createSequentialGroup();
+        seq3.add(label);
+        seq3.add(15, 15, 15);
+        for (int i = 0; i < textfield.length; i++) {
+        	seq3.add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+        			.add(textfield[i], org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+        			.add(radiobutton[i]));
+        	if (i != textfield.length-1)
+        		seq3.addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED);
+        	else
+        		seq3.addContainerGap(45, Short.MAX_VALUE);
+        }        
+        layout.setVerticalGroup(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING).add(seq3));
     }
     
     /**
      * Variables for panelcomponents.
      */
-    private javax.swing.ButtonGroup buttonGroup1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JRadioButton jRadioButton1;
-    private javax.swing.JRadioButton jRadioButton2;
-    private javax.swing.JRadioButton jRadioButton3;
-    private javax.swing.JRadioButton jRadioButton4;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
-    private javax.swing.JTextField jTextField3;
-    private javax.swing.JTextField jTextField4;    
+    private ButtonGroup buttonGroup;
+    private JLabel label;
+    private JRadioButton[] radiobutton;
+    private JTextField[] textfield;   
 }

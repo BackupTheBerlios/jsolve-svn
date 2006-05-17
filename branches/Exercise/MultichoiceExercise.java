@@ -11,7 +11,6 @@ public class MultichoiceExercise extends Exercise {
 	/**
 	 * The list of possible answers.
 	 */
-    //private List<String> possibilities;
 	private String possibilities;
 		
     /**
@@ -19,6 +18,7 @@ public class MultichoiceExercise extends Exercise {
      */
     private int correctSolution;    
     
+    // Sorry for this hacked code, but ObjectDB won't work without it.
     private transient List<String> output;
     
     /**
@@ -26,11 +26,10 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(){
         super("","","");
-        //possibilities = new ArrayList<String>();
         possibilities = new String();
         correctSolution = 0;
         addPanel = new MultichoiceAddPanel();
-        solvePanel = new MultichoiceSolvePanel();
+        solvePanel = new MultichoiceSolvePanel(StringToList(possibilities));
     }
     
     /**
@@ -41,11 +40,10 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(String title, String theme, String question) {
     	super(title, theme, question);
-    	//possibilities = new ArrayList<String>();
     	possibilities = new String();
     	correctSolution = 0;
     	addPanel = new MultichoiceAddPanel();
-    	solvePanel = new MultichoiceSolvePanel();
+    	solvePanel = new MultichoiceSolvePanel(StringToList(possibilities));
     }
     
     /**
@@ -58,14 +56,13 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(String title, String theme, String question, List<String> possibilities, int correctSolution) {
     	super(title,theme,question);
-    	//this.possibilities = possibilities;
     	this.possibilities = ListToString(possibilities);
     	this.correctSolution = correctSolution;
     	addPanel = new MultichoiceAddPanel();
-    	solvePanel = new MultichoiceSolvePanel();
+    	solvePanel = new MultichoiceSolvePanel(possibilities);
     }
     
-    private static String ListToString(List<String> list) {
+    private String ListToString(List<String> list) {
     	String output = new String();
     	for (String el : list) {
     		output += el;
@@ -113,8 +110,7 @@ public class MultichoiceExercise extends Exercise {
     }
     
     public SolvePanel createSolvePanel() {
-    	MultichoiceSolvePanel panel = new MultichoiceSolvePanel();
-    	panel.setPossibilities(StringToList(possibilities));
+    	MultichoiceSolvePanel panel = new MultichoiceSolvePanel(StringToList(possibilities));
     	return panel;
     }
     
