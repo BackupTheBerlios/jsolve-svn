@@ -26,7 +26,6 @@ public class MultichoiceExercise extends Exercise {
         possibilities = new ArrayList<String>();
         correctSolution = 0;
         addPanel = new MultichoiceAddPanel();
-        solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
@@ -40,7 +39,6 @@ public class MultichoiceExercise extends Exercise {
     	possibilities = new ArrayList<String>();
     	correctSolution = 0;
     	addPanel = new MultichoiceAddPanel();
-    	solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
@@ -56,7 +54,7 @@ public class MultichoiceExercise extends Exercise {
     	this.possibilities = possibilities;
     	this.correctSolution = correctSolution;
     	addPanel = new MultichoiceAddPanel();
-    	solvePanel = new MultichoiceSolvePanel();
+    	solvePanel = new MultichoiceSolvePanel(possibilities);
     }
     
     /**
@@ -68,6 +66,8 @@ public class MultichoiceExercise extends Exercise {
     	
     	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
     	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
+    	
+    	solvePanel = new MultichoiceSolvePanel(possibilities);
     }
 
     /**

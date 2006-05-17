@@ -1,5 +1,7 @@
 package Exercise;
 
+import java.util.List;
+
 public class MultichoiceSolvePanel extends SolvePanel {
 	
 	
@@ -11,8 +13,12 @@ public class MultichoiceSolvePanel extends SolvePanel {
 	/**
 	 * Constructor
 	 */
-	public MultichoiceSolvePanel() {
+	public MultichoiceSolvePanel(List<String> possibilities) {
 		initComponents();
+		jTextField1.setText(possibilities.get(0));
+		jTextField2.setText(possibilities.get(1));
+		jTextField3.setText(possibilities.get(2));
+		jTextField4.setText(possibilities.get(3));
 	}
 	
 	/**
