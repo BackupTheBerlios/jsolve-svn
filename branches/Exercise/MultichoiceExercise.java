@@ -11,7 +11,8 @@ public class MultichoiceExercise extends Exercise {
 	/**
 	 * The list of possible answers.
 	 */
-    private List<String> possibilities;
+    //private List<String> possibilities;
+	private String possibilities;
 		
     /**
      * Represents the index of the right answer in the list.
@@ -23,7 +24,8 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(){
         super("","","");
-        possibilities = new ArrayList<String>();
+        //possibilities = new ArrayList<String>();
+        possibilities = new String();
         correctSolution = 0;
         addPanel = new MultichoiceAddPanel();
         solvePanel = new MultichoiceSolvePanel();
@@ -37,7 +39,8 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(String title, String theme, String question) {
     	super(title, theme, question);
-    	possibilities = new ArrayList<String>();
+    	//possibilities = new ArrayList<String>();
+    	possibilities = new String();
     	correctSolution = 0;
     	addPanel = new MultichoiceAddPanel();
     	solvePanel = new MultichoiceSolvePanel();
@@ -53,10 +56,29 @@ public class MultichoiceExercise extends Exercise {
      */
     public MultichoiceExercise(String title, String theme, String question, List<String> possibilities, int correctSolution) {
     	super(title,theme,question);
-    	this.possibilities = possibilities;
+    	//this.possibilities = possibilities;
+    	this.possibilities = ListToString(possibilities);
     	this.correctSolution = correctSolution;
     	addPanel = new MultichoiceAddPanel();
     	solvePanel = new MultichoiceSolvePanel();
+    }
+    
+    private static String ListToString(List<String> list) {
+    	String output = new String();
+    	for (String el : list) {
+    		output += el;
+    		output += ";";
+    	}
+    	return output;
+    }
+    
+    private static List<String> StringToList(String string) {
+    	List<String> output = new ArrayList<String>();
+    	String[] temp = string.split(";");
+    	for (int i = 0; i < temp.length; i++) {
+    		output.add(temp[i]);
+    	}
+    	return output;
     }
     
     /**
@@ -66,7 +88,7 @@ public class MultichoiceExercise extends Exercise {
     	if (addPanel == null)
     		throw new NullPointerException("No add panel found!");
     	
-    	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
+    	possibilities = ListToString(((MultichoiceAddPanel) addPanel).getPossibilities());
     	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
     }
     
@@ -90,7 +112,7 @@ public class MultichoiceExercise extends Exercise {
     
     public SolvePanel createSolvePanel() {
     	MultichoiceSolvePanel panel = new MultichoiceSolvePanel();
-    	panel.setPossibilities(possibilities);
+    	panel.setPossibilities(StringToList(possibilities));
     	return panel;
     }
     

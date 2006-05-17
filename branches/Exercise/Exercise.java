@@ -115,13 +115,17 @@ public abstract class Exercise {
     }
     
     /**
-     * Returns the panel used for solving a new exercise.
-     * @return panel used for solving a new exercise
+     * Returns the panel used for solving an existing exercise.
+     * @return panel used for solving an existing exercise
      */
     public SolvePanel getSolvePanel() {
     	return solvePanel;
     }
     
+    /**
+     * Creates a panel used for solving an existing exercise.
+     * @return panel used for solving an existing exercise
+     */
     public abstract SolvePanel createSolvePanel();
 
     /**
