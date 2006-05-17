@@ -25,12 +25,12 @@ public abstract class Exercise {
     /**
      * Panel with controls to add a new exercise
      */
-    protected AddPanel addPanel;
+    protected transient AddPanel addPanel;
     
     /**
      * Panel with controls to solve an existing exercise
      */
-    protected SolvePanel solvePanel;
+    protected transient SolvePanel solvePanel;
     
     /**
      * Constructor
@@ -121,6 +121,8 @@ public abstract class Exercise {
     public SolvePanel getSolvePanel() {
     	return solvePanel;
     }
+    
+    public abstract SolvePanel createSolvePanel();
 
     /**
      * Returns a string representation of this Exercise

@@ -12,7 +12,7 @@ public class MultichoiceExercise extends Exercise {
 	 * The list of possible answers.
 	 */
     private List<String> possibilities;
-
+		
     /**
      * Represents the index of the right answer in the list.
      */
@@ -68,8 +68,6 @@ public class MultichoiceExercise extends Exercise {
     	
     	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
     	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
-    	
-    	((MultichoiceSolvePanel) solvePanel).setPossibilities(possibilities);
     }
     
     /**
@@ -88,6 +86,12 @@ public class MultichoiceExercise extends Exercise {
     		output.add("Uw antwoord is verkeerd.");
     	
         return output;
+    }
+    
+    public SolvePanel createSolvePanel() {
+    	MultichoiceSolvePanel panel = new MultichoiceSolvePanel();
+    	panel.setPossibilities(possibilities);
+    	return panel;
     }
     
     /**
