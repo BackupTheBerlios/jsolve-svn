@@ -50,8 +50,8 @@ public class MultichoiceExercise extends Exercise {
      * <p>Makes sure this instant is consistant with inputted info.</p>
      */
     public void writeInput() {
-    	possibilities = addPanel.getPossibilities();
-    	correctSolution = addPanel.getCorrectSolution();
+    	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
+    	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
     }
     
     /**

@@ -58,6 +58,18 @@ public abstract class Exercise {
     public String getQuestion() {
         return question;
     } 
+    
+    public void setTitle(String title) {
+    	this.title = title;
+    }
+    
+    public void setQuestion(String question) {
+    	this.question = question;
+    }
+    
+    public void setTheme(String theme) {
+    	this.theme = theme;
+    }
 
     /**
      * <p>Returns a string representation of this Object</p>
