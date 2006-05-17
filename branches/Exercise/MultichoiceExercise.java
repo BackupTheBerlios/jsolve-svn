@@ -25,6 +25,8 @@ public class MultichoiceExercise extends Exercise {
      * <p>Represents the index of the right answer in the list.</p>
      */
     private int correctSolution;    
+
+    //protected SolvePanel solvePanel;
     
     /**
      * <p>Constructor</p>

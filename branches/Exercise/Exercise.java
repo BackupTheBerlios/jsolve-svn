@@ -16,9 +16,8 @@ public abstract class Exercise {
     private String question;
 
     private String title;
-    
+
     protected AddPanel addPanel;
-    protected SolvePanel solvePanel;
     
     /**
      * constructor
