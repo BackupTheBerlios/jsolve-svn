@@ -19,6 +19,8 @@ public class MultichoiceExercise extends Exercise {
      */
     private int correctSolution;    
     
+    private transient List<String> output;
+    
     /**
      * Constructor
      */
@@ -72,8 +74,8 @@ public class MultichoiceExercise extends Exercise {
     	return output;
     }
     
-    private static List<String> StringToList(String string) {
-    	List<String> output = new ArrayList<String>();
+    private List<String> StringToList(String string) {
+    	output = new ArrayList<String>();
     	String[] temp = string.split(";");
     	for (int i = 0; i < temp.length; i++) {
     		output.add(temp[i]);
