@@ -9,7 +9,7 @@ import javax.swing.JPanel;
  *
  * @author  Kurt Deklerck
  */
-public class MultichoiceAddPanel extends JPanel implements AddPanel {
+public class MultichoiceAddPanel extends AddPanel {
     
     /** Creates new form MultiCreateAnswerPanel */
     public MultichoiceAddPanel() {

@@ -1,7 +1,8 @@
 package Exercise;
 
-import java.util.List;
+import javax.swing.JPanel;
 
-public interface AddPanel {	
+
+class AddPanel extends JPanel {	
 
 }
