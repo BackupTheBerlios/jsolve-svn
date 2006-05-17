@@ -26,6 +26,7 @@ public class MultichoiceExercise extends Exercise {
         possibilities = new ArrayList<String>();
         correctSolution = 0;
         addPanel = new MultichoiceAddPanel();
+        solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
@@ -39,6 +40,7 @@ public class MultichoiceExercise extends Exercise {
     	possibilities = new ArrayList<String>();
     	correctSolution = 0;
     	addPanel = new MultichoiceAddPanel();
+    	solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
@@ -54,7 +56,7 @@ public class MultichoiceExercise extends Exercise {
     	this.possibilities = possibilities;
     	this.correctSolution = correctSolution;
     	addPanel = new MultichoiceAddPanel();
-    	solvePanel = new MultichoiceSolvePanel(possibilities);
+    	solvePanel = new MultichoiceSolvePanel();
     }
     
     /**
@@ -67,9 +69,9 @@ public class MultichoiceExercise extends Exercise {
     	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
     	correctSolution = ((MultichoiceAddPanel) addPanel).getCorrectSolution();
     	
-    	solvePanel = new MultichoiceSolvePanel(possibilities);
+    	((MultichoiceSolvePanel) solvePanel).setPossibilities(possibilities);
     }
-
+    
     /**
      * Tests if the given answer is true and calls the right tests.
      * @return List<String> list of strings with intelligent feedback

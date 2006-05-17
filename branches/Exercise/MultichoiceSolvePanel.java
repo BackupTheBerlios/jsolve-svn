@@ -13,12 +13,18 @@ public class MultichoiceSolvePanel extends SolvePanel {
 	/**
 	 * Constructor
 	 */
-	public MultichoiceSolvePanel(List<String> possibilities) {
+	public MultichoiceSolvePanel() {
 		initComponents();
+	}
+	
+	public void setPossibilities(List<String> possibilities) {
 		jTextField1.setText(possibilities.get(0));
 		jTextField2.setText(possibilities.get(1));
 		jTextField3.setText(possibilities.get(2));
 		jTextField4.setText(possibilities.get(3));
+		
+		validate();
+		repaint();
 	}
 	
 	/**
