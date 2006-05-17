@@ -34,6 +34,7 @@ public class MultichoiceExercise extends Exercise {
     public MultichoiceExercise(){
         super("","","");
         addPanel = new MultichoiceAddPanel();
+        solvePanel = new MultichoiceSolvePanel();
     }
     
     public MultichoiceExercise(String title, String theme, String question) {
@@ -60,10 +61,10 @@ public class MultichoiceExercise extends Exercise {
     public List<String> validate() {
     	List<String> output = new ArrayList<String>();
     	
-    	/*if (addPanel.getCorrectSolution().isSelected())
+    	if (((MultichoiceSolvePanel) solvePanel).getSelected() == correctSolution)
     	    output.add("Uw antwoord is juist.");
     	else
-    		output.add("Uw antwoord is verkeerd.");*/
+    		output.add("Uw antwoord is verkeerd.");
     	
         return output;
     }
