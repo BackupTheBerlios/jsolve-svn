@@ -1,15 +1,7 @@
 package Exercise;
 
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.util.ArrayList;
 import java.util.List;
-
-import javax.swing.BorderFactory;
-import javax.swing.JCheckBox;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 /**
  * Subclass of exercise specificly for multiple choise exercises.
@@ -17,19 +9,17 @@ import javax.swing.JTextField;
 public class MultichoiceExercise extends Exercise {
 
 	/**
-	 * <p>The list of possible answers.</p>
+	 * The list of possible answers.
 	 */
     private List<String> possibilities;
 
     /**
-     * <p>Represents the index of the right answer in the list.</p>
+     * Represents the index of the right answer in the list.
      */
     private int correctSolution;    
-
-    //protected SolvePanel solvePanel;
     
     /**
-     * <p>Constructor</p>
+     * Constructor
      */
     public MultichoiceExercise(){
         super("","","");
@@ -37,10 +27,24 @@ public class MultichoiceExercise extends Exercise {
         solvePanel = new MultichoiceSolvePanel();
     }
     
+    /**
+     * Constructor
+     * @param title title of the exercise
+     * @param theme theme of the exercise
+     * @param question question to be asked
+     */
     public MultichoiceExercise(String title, String theme, String question) {
     	super(title, theme, question);
     }
     
+    /**
+     * Constructor
+     * @param title title of the exercise
+     * @param theme theme of the exercise
+     * @param question question to be asked
+     * @param possibilities list of possible answers to the question
+     * @param correctSolution the n-th answer in the list of possibilities that is the correct one
+     */
     public MultichoiceExercise(String title, String theme, String question, List<String> possibilities, int correctSolution) {
     	super(title,theme,question);
     	this.possibilities = possibilities;
@@ -48,7 +52,7 @@ public class MultichoiceExercise extends Exercise {
     }
     
     /**
-     * <p>Makes sure this instant is consistant with inputted info.</p>
+     * Makes sure this instant is consistant with inputted info.
      */
     public void writeInput() {
     	possibilities = ((MultichoiceAddPanel) addPanel).getPossibilities();
@@ -56,7 +60,8 @@ public class MultichoiceExercise extends Exercise {
     }
 
     /**
-     * <p>Tests if the given answer is true and calls the right tests.</p>
+     * Tests if the given answer is true and calls the right tests.
+     * @return List<String> list of strings with intelligent feedback
      */
     public List<String> validate() {
     	List<String> output = new ArrayList<String>();
@@ -69,6 +74,11 @@ public class MultichoiceExercise extends Exercise {
         return output;
     }
     
+    /**
+     * Returns whether this MultichoiceExercise is equal to the given MultichoiceExercise.
+     * @param ex Given MultichoiceExercise to check against
+     * @return true if both MultichoiceExercises are equal
+     */
     public boolean equals(MultichoiceExercise ex) {
     	return (this.possibilities.equals(ex.possibilities)
     			&& (this.correctSolution == ex.correctSolution)

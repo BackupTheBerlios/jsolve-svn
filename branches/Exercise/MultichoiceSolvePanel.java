@@ -2,15 +2,43 @@ package Exercise;
 
 public class MultichoiceSolvePanel extends SolvePanel {
 	
+	
+	/**
+	 * Generated serialversion id
+	 */
+	private static final long serialVersionUID = -321090750862029735L;
+	
+	/**
+	 * Constructor
+	 */
 	public MultichoiceSolvePanel() {
 		initComponents();
 	}
 	
+	/**
+	 * Returns the index of the selected checkbox/radiobutton
+	 * @return selected index, starting by 0
+	 */
 	public int getSelected() {
-		
-		return 0;
+		/**
+         * hardcoded
+         */
+        int juist;
+        if (jRadioButton1.isSelected()){
+            juist = 1;
+        }else if (jRadioButton2.isSelected()){
+            juist = 2;
+        }else if (jRadioButton3.isSelected()){
+            juist = 3;
+        }else {
+            juist = 4;
+        }
+        return juist;
 	}
 	
+	/**
+	 * Initialises the components needed for the panel.
+	 */
 	private void initComponents() {
         buttonGroup1 = new javax.swing.ButtonGroup();
         jTextField1 = new javax.swing.JLabel();
@@ -87,10 +115,11 @@ public class MultichoiceSolvePanel extends SolvePanel {
                     .add(jRadioButton4))
                 .addContainerGap(45, Short.MAX_VALUE))
         );
-    }// </editor-fold>//GEN-END:initComponents
+    }
     
-    
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    /**
+     * Variables for panelcomponents
+     */
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JRadioButton jRadioButton1;
@@ -101,6 +130,4 @@ public class MultichoiceSolvePanel extends SolvePanel {
     private javax.swing.JLabel jTextField2;
     private javax.swing.JLabel jTextField3;
     private javax.swing.JLabel jTextField4;
-
-
 }
