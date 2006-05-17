@@ -1,5 +1,5 @@
-
 package Exercise;
+
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.util.ArrayList;
@@ -66,6 +66,12 @@ public class MultichoiceExercise extends Exercise {
     		output.add("Uw antwoord is verkeerd.");*/
     	
         return output;
+    }
+    
+    public boolean equals(MultichoiceExercise ex) {
+    	return (this.possibilities.equals(ex.possibilities)
+    			&& (this.correctSolution == ex.correctSolution)
+    			&& (ex.getClass() == this.getClass()));
     }
 }
 

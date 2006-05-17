@@ -1,5 +1,7 @@
 package Exercise;
 
-public interface SolvePanel {
+import javax.swing.JPanel;
+
+public class SolvePanel extends JPanel {
 
 }

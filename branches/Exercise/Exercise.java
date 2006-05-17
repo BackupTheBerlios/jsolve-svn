@@ -90,4 +90,12 @@ public abstract class Exercise {
      * <p>Makes sure this instant is consistant with inputted info.</p>
      */
     public abstract void writeInput();
+    
+    public boolean equals(Exercise ex) {
+    	return (this.question.equalsIgnoreCase(ex.question)
+    			&& this.title.equalsIgnoreCase(ex.title)
+    			&& this.theme.equalsIgnoreCase(ex.theme)
+    			&& (this.getClass() == ex.getClass()));
+    }
+    
  }
