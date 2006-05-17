@@ -4,9 +4,12 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Properties;
 import java.util.Set;
 
+import javax.jdo.JDOHelper;
 import javax.jdo.PersistenceManager;
+import javax.jdo.PersistenceManagerFactory;
 
 import junit.framework.Assert;
 import junit.framework.JUnit4TestAdapter;
@@ -38,7 +41,7 @@ public class TestStorage {
 			pos.add("C");
 			pos.add("D");
 			String theme = "algemeen";
-			Exercise ex = new MultichoiceExercise("exercise "+i,theme,"What is this question",pos,1);
+			Exercise ex = new MultichoiceExercise("exercise "+i,theme,"What is this question",pos,1);		
 			buffer[i] = ex;
 			themes.add(theme);
 			conn.addExercise(ex);
@@ -59,36 +62,36 @@ public class TestStorage {
 		conn.close();
 	}
 	
-	//FIXME: equals methods of exercise types
 	@org.junit.Test
 	public void testGet(){
 		conn.connect();
 		for (int i=0; i<500; i++)
-			Assert.assertEquals(buffer[i].toString(), (conn.getExercise("exercise "+ i)).toString());
+			Assert.assertEquals(buffer[i].equals(conn.getExercise("exercise "+ i)),true);
 		conn.close();
 	}
 	
 	@org.junit.Test
 	public void testGetThemes(){
 		conn.connect();
-		ArrayList<String> dbthemes = (ArrayList<String>)conn.getThemes();
-		for (int i=0; i<dbthemes.size(); i++)
-			Assert.assertEquals((setToList(themes)).size(), dbthemes.size());
+		Assert.assertEquals(((conn.getThemes()).equals(setToList(themes))),true);
 		conn.close();
 	}
-	
+	//FIXME
 	@org.junit.Test
 	public void testGetTheme(){
 		conn.connect();
 		List<String> themes = conn.getThemes();
 		for (int i=0;i<themes.size();i++){
-			List<String> tmp = new ArrayList<String>();
 			String theme = themes.get(i);
 	    	for (int j=0; j<buffer.length; j++){
-	    		if (buffer[j].getTheme().equals(theme))
-	    		tmp.add((String)buffer[j].getTheme());
+	    		if ((buffer[j].getTheme()).equals(theme)){
+	    			List<Exercise> tmp = conn.getTheme(theme);
+	    			List<String> id = new ArrayList<String>();
+	    			for (Exercise ex : tmp)
+	    				id.add(ex.toString());
+	    			Assert.assertEquals((id).contains(buffer[j].toString()), true);
+	    		}
 	    	}
-			Assert.assertEquals(tmp, conn.getTheme(theme));
 		}
 		conn.close();		
 	}
@@ -102,18 +105,20 @@ public class TestStorage {
 	}
 	
 	
-	
+	//FIXME
 	@org.junit.Test
 	public void testGetExerciseType(){
-		Set<Exercise> tmp = new HashSet<Exercise>();
+		conn.connect();
 		MultichoiceExercise dum = new MultichoiceExercise();
 		for(int i=0; i<buffer.length; i++){
-			if((dum.getClass()).equals(buffer[i].getClass()))
-				tmp.add(buffer[i]);
+			if((dum.getClass()).equals(buffer[i].getClass())){
+				List<Exercise> tmp = conn.getExerciseType(dum);
+    			List<String> id = new ArrayList<String>();
+    			for (Exercise ex : tmp)
+    				id.add(ex.toString());
+				Assert.assertEquals((id).contains(buffer[i].toString()), true);
+			}
 		}
-			
-		conn.connect();
-		Assert.assertEquals(tmp, listToSet(conn.getExerciseType(dum)));
 		conn.close();
 	}
 	
@@ -121,11 +126,11 @@ public class TestStorage {
 	public void testGetExerciseNames(){
 		conn.connect();
 		
-		Set<String> tmp = new HashSet<String>();
+		List<String> tmp = new ArrayList<String>();
     	for (int i=0; i<buffer.length; i++)
     		tmp.add(buffer[i].getTitle());
     	
-		Assert.assertEquals(tmp, listToSet(conn.getExerciseNames()));
+		Assert.assertEquals(tmp, conn.getExerciseNames());
 		conn.close();
 	}
 	
@@ -134,12 +139,13 @@ public class TestStorage {
 	public void testGetAllExercises(){
 		conn.connect();
 		
-		Set<Exercise> tmp = new HashSet<Exercise>();
-    	for (int i=0; i<buffer.length; i++)
-    		tmp.add(buffer[i]);
-    	
-		for (int i=0; i<5000; i++)
-			Assert.assertEquals(tmp, listToSet(conn.getAllExercises()));
+		for(int i=0; i<buffer.length; i++){
+				List<Exercise> tmp = conn.getAllExercises();
+    			List<String> id = new ArrayList<String>();
+    			for (Exercise ex : tmp)
+    				id.add(ex.toString());
+				Assert.assertEquals((id).contains(buffer[i].toString()), true);
+		}
 		conn.close();
 	}
 	/*
