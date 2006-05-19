@@ -1,18 +1,18 @@
-/*
- * 
- */
 package Storage;
-import Exercise.*;
+
 /**
- * 
+ * @author Birger Anckaert
+ *
+ * Layer for dataretrieval from datastorage
  */
+
+import Exercise.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 import java.util.Properties;
 import java.util.Set;
 
@@ -26,11 +26,12 @@ import com.objectdb.Utilities;
 
 public class DataConnection {
 	
+	//Datafile for storage
 	private final static String URL = "./Storage/data.odb";
 	private PersistenceManager pm;
 	
 	/**
-	 * Initialize all used classes
+	 * Initialize all used classes for database usage
 	 */
 	public DataConnection(){
 		//Enhance the used classes if necessary:
@@ -55,7 +56,7 @@ public class DataConnection {
 	}
 	
 	/**
-	 * Closes a database connection and end active transactions
+	 * Closes a database connection and ends active transactions
 	 */
 	public void close(){
         if (pm.currentTransaction().isActive())
@@ -64,11 +65,10 @@ public class DataConnection {
             pm.close();
 	}
 	
-	//TODO: id ophalen met de juiste exercise methode.
 	/**
-	 * Add an Exercise to the database
-	 * 
-	 * @param
+	 * Add an exercise to the database
+	 * @param exercise to be added
+	 * @return boolean representing the succes of the action
 	 */
 	public boolean addExercise(Exercise exercise){
 		try{
@@ -83,18 +83,18 @@ public class DataConnection {
 	}
 	
 	/**
-	 * Get an exercise from the database
-	 * 
-	 * @param
+	 * Retrieve an exercise from the database
+	 * @param name of the exercise to be retrieved
+	 * @return exercise with the given name
 	 */
 	public Exercise getExercise(String name){
 		return (Exercise)(pm.getObjectById(name, false));		
 	}
 	
 	/**
-	 * Delete an exercise from the database
-	 * 
-	 * @param
+	 * Removes an exercise from the database
+	 * @param name of the exercise to be deleted
+	 * @return boolean  representing the succes of the action
 	 */
 	public boolean deleteExercise(String name){
 		try{
@@ -109,9 +109,9 @@ public class DataConnection {
 	}
 	
 	/**
-	 * Add an exercisesequence to the database
-	 *
-	 *
+	 * Add an exercise sequence to the database
+	 * @param exercises contained in the list
+	 * @param seqID unique id of the sequence object
 	 */
 	public void saveList(List<Exercise> exercises,int seqID) {        
         pm.currentTransaction().begin();
@@ -121,18 +121,18 @@ public class DataConnection {
 	}
 
 	/**
-	 * Get an exercisesequence from the database
-	 *
-	 *
+	 * Retrieve an exercise sequence from the database
+	 * @param seqID unique id of the sequence object
+	 * @return List of the exercises under that id
 	 */
+	@SuppressWarnings("unchecked")
 	public List<Exercise> loadList(int seqID) {
 		return (List<Exercise>)(pm.getObjectById("seq"+seqID, false));
 	}
 
 	/**
-	 * Returns a list of exercise themes 
-	 *
-	 *
+	 * Lists all themes of exercises in the database
+	 * @return List of themestrings
 	 */
 	public List<String> getThemes() {
 		Set<String> themes = new HashSet<String>();
@@ -148,13 +148,13 @@ public class DataConnection {
 	}
 	
 	/**
-     * Gets all exercises of one specific theme
-     * 
-     * 
-     */
+	 * Gets all exercises of one specific theme
+	 * @param theme The wanted theme
+	 * @return List of exercises corresponding to that theme
+	 */
     public List<Exercise> getTheme(String theme) { 
     	List<Exercise> out = new ArrayList<Exercise>();
-    	
+    	       
     	Query query = pm.newQuery(Exercise.class, "this.theme == theme");
     	query.declareParameters("String theme");
     	Collection results = (Collection)query.execute(theme);
@@ -166,11 +166,9 @@ public class DataConnection {
     	return out;
     }
 	
-    //FIXME: zeer moeilijke methode!!!
 	/**
-	 * Lists the available exercise types
-	 * 
-	 * 
+	 * List all exercise types
+	 * @return List of exercisetypes
 	 */
     public List<String> getExerciseTypes() {        
     	Set<String> types = new HashSet<String>();
@@ -185,8 +183,9 @@ public class DataConnection {
     }
     
     /**
-     * 
-     * @return
+     * List all exercises of one specific type
+     * @param obj Dummy object of the wanted type
+     * @return List of all exercises of a corresponding class
      */
     public List<Exercise> getExerciseType(Object obj) {
     	List<Exercise> exercises = new ArrayList<Exercise>();
@@ -201,9 +200,8 @@ public class DataConnection {
     }
 	
 	/**
-	 * Lists all exercises names
-	 *
-	 *
+	 * Returns all names of the exercises in the database
+	 * @return List of all exercisenames 
 	 */
 	public List<String> getExerciseNames() {
 		Query query = pm.newQuery(Exercise.class);
@@ -217,9 +215,8 @@ public class DataConnection {
 	}
 	
 	/**
-	 * List all exercises
-	 * 
-	 * 
+	 * Returns all exercises in the database
+	 * @return List of all exercises in the database
 	 */
 	public List<Exercise> getAllExercises() {
 		Query query = pm.newQuery(Exercise.class);
@@ -232,12 +229,14 @@ public class DataConnection {
 		return exercises;
 	}
 	
-    //Hulpfuncties
+	/*
+	 * Extra functionality
+	 */
 	
 	/**
-	 * Executes a query on exercises in the database
-	 * 
-	 * @param
+	 * Performce a query on exercises in the database
+	 * @param search Query on the exercises
+	 * @return Collection of all corresponding exercises
 	 */
 	public Collection exerciseQuery(String search){
 		Query query = pm.newQuery(Exercise.class, search);
@@ -246,18 +245,21 @@ public class DataConnection {
 	}
 	
 	/**
-     * Prints a collection content using a specified iterator.
-     */
-    private void printCollection(String title, Iterator iter) {
+	 * Print a Collection object to console
+	 * @param title Title of the Collection
+	 * @param iter Iterator on the Collection
+	 */
+    @SuppressWarnings("unused")
+	private void printCollection(String title, Iterator iter) {
         System.out.println(title);
         while (iter.hasNext())
             System.out.println("  " + iter.next());
     }
     
     /**
-     * Converts a set to a list
-     * @param set
-     * @return
+     * Converts a set to list
+     * @param set Set to be converted
+     * @return List of converted Set
      */
     private List<String> setToList(Set<String> set) {
     	List<String> out = new ArrayList<String>();

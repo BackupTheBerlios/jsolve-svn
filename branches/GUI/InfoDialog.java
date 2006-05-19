@@ -1,14 +1,14 @@
 /*
  * InfoDialog.java
  *
- * Created on 15 mei 2006, 17:34
+ * 
  */
 
 package GUI;
 
 /**
  *
- * @author  Kurt Deklerck
+ *
  */
 public class InfoDialog extends javax.swing.JDialog {
     
@@ -109,16 +109,6 @@ public class InfoDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
     
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new InfoDialog(new javax.swing.JFrame(), true).setVisible(true);
-            }
-        });
-    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

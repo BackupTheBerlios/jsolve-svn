@@ -1,7 +1,7 @@
 /*
  * InlogDialog.java
  *
- * Created on 7 mei 2006, 11:01
+ * 
  */
 
 package GUI;
@@ -11,7 +11,7 @@ import java.awt.event.ActionListener;
 
 /**
  *
- * @author  Kurt Deklerck
+ * 
  */
 public class InlogDialog extends javax.swing.JDialog {
     
@@ -21,30 +21,30 @@ public class InlogDialog extends javax.swing.JDialog {
     /** Creates new form InlogDialog */
     public InlogDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
-       
-//        leerkrachtButton.addActionListener(new inlogButtonListener());
-//        leerlingButton.addActionListener(new inlogButtonListener());
         initComponents();
     }
     
     
     
     
-        
-    public boolean showInlogDialog(){
+    /**
+     *  toont dialog, geeft 0 terug als dialog gesloten werd
+     *                      1 als leerkrachtButton
+     *                      2 als leerling
+     */  
+    public int showInlogDialog(){
         lastPressed = null;
+        int status = 0;
         setVisible(true);
-        return lastPressed ==leerkrachtButton;
+        if (lastPressed == leerkrachtButton)
+            status = 1;
+        else if(lastPressed == leerlingButton)
+            status = 2;    
+        
+        return status;
     }
     
-    
-    
-//////////////////////////////////////////
-//                                      //
-//            Listeners                 //
-//                                      //
-//////////////////////////////////////////
-    
+  
     
    
     
@@ -114,16 +114,7 @@ public class InlogDialog extends javax.swing.JDialog {
          setVisible (false);
     }//GEN-LAST:event_inlogButtonKlikAction2
     
-    /**
-     * @param args the command line arguments
-     */
-//    public static void main(String args[]) {
-//        java.awt.EventQueue.invokeLater(new Runnable() {
-//            public void run() {
-//                new InlogDialog(new javax.swing.JFrame(), true).setVisible(true);
-//            }
-//        });
-//    }
+
     
     
 

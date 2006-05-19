@@ -25,6 +25,10 @@ public class MultichoiceSolvePanel extends SolvePanel {
 		setPossibilities(possibilities);
 	}
 	
+	/**
+	 * Sets a new list of possible answers 
+	 * @param possibilities new list of possible answers
+	 */
 	public void setPossibilities(List<String> possibilities) {
 		for (int i = 0; i < possibilities.size(); i++) {
 			label[i].setText(possibilities.get(i));
@@ -35,19 +39,20 @@ public class MultichoiceSolvePanel extends SolvePanel {
 	}
 	
 	/**
-	 * Returns the index of the selected checkbox/radiobutton
-	 * @return selected index, starting by 0
+	 * Returns the index of the selected radiobutton
+	 * @return selected index, starting by 0. Returns -1 if nothing was selected.
 	 */
 	public int getSelected() {
 		for (int i = 0; i < radiobutton.length; i++) {
         	if (radiobutton[i].isSelected())
         		return i;
         }
-        return 0;
+        return -1;
 	}
 	
 	/**
-	 * Initialises the components needed for the panel.
+	 * Initialises the components and layout needed for the panel.
+	 * @param size number of possible answers
 	 */
 	private void initComponents(int size) {
     	label = new JLabel[size];

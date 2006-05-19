@@ -1,6 +1,7 @@
 package main;
 
-import GUI.*;/*
+import GUI.*;import GUImodel.GUImodel;
+/*
 
  * Main.java
  *

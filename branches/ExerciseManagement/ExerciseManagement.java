@@ -52,7 +52,7 @@ public class ExerciseManagement {
 
     /**
      * Adds a new exercise to the list
-     * @param new exercise
+     * @param ex new exercise
      */
     public void addExercise(Exercise ex) { 
         list.add(ex);
@@ -60,14 +60,14 @@ public class ExerciseManagement {
     
     /**
      * Changes the active exercise.
-     * @param index of new exercise
+     * @param index index of new exercise
      */
     public void setIndex(int index) {
     	this.index = index;
     }
 
     /**
-     * Returns the sequence of exercises
+     * Returns the sequence of exercises which are currently active
      * @return list of exercises
      */
     public List<Exercise> getList() {
@@ -75,7 +75,7 @@ public class ExerciseManagement {
     } 
     
     /**
-     * Returns the index
+     * Returns the index of the currently active exercise
      * @return index
      */
     public int getIndex() {
@@ -84,7 +84,7 @@ public class ExerciseManagement {
 
     /**
      * Sets a new sequence of exercises to solve.
-     * @param new list of exercises
+     * @param list new list of exercises
      */
     public void setList(List<Exercise> list) {        
         this.list = list;
@@ -106,6 +106,14 @@ public class ExerciseManagement {
         
         return null;
     } 
+    
+    /**
+     * Clears the list of active exercises.
+     */
+    public void clearList() {
+    	list.clear();
+    	index = 0;
+    }
 
     /**
      * Loads the list of exercises

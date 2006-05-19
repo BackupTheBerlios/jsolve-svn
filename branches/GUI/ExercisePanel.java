@@ -1,25 +1,32 @@
 /*
  * ExercisePanel.java
  *
- * Created on 11 mei 2006, 18:49
+ * 
  */
 package GUI;
 
 import Exercise.Exercise;
+import GUImodel.GUImodel;
+
+import java.util.List;
+import javax.swing.DefaultListModel;
 import javax.swing.JPanel;
 /**
  *
- * @author  Kurt Deklerck
+ * 
  */
 public class ExercisePanel extends javax.swing.JPanel {
     
+    private GUImodel gModel;
+    
     /** Creates new form ExercisePanel */
-    public ExercisePanel(Exercise ex) {
+    public ExercisePanel(Exercise ex, GUImodel gModel) {
+    	ex.init();
         initComponents();
+        this.gModel = gModel; 
         titelLabel.setText(ex.getTitle());
         vraag.setText(ex.getQuestion());
-        JPanel testPanel = new JPanel();
-        jPanel1.add(testPanel);
+        jPanel1.add(ex.createSolvePanel());
         validate();
         repaint();
         
@@ -47,63 +54,81 @@ public class ExercisePanel extends javax.swing.JPanel {
         titelLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         titelLabel.setText("jLabel1");
 
-        vraag.setText("jLabel2");
+        vraag.setVerticalAlignment(javax.swing.SwingConstants.TOP);
 
+        antwoordLabel.setFont(new java.awt.Font("Tahoma", 1, 12));
         antwoordLabel.setText("Antwoord:");
 
+        vraagLabel.setFont(new java.awt.Font("Tahoma", 1, 12));
         vraagLabel.setText("Vraag:");
 
         feedbackPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Feedback"));
-        feedbackList.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(feedbackList);
 
         org.jdesktop.layout.GroupLayout feedbackPanelLayout = new org.jdesktop.layout.GroupLayout(feedbackPanel);
         feedbackPanel.setLayout(feedbackPanelLayout);
         feedbackPanelLayout.setHorizontalGroup(
             feedbackPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 760, Short.MAX_VALUE)
+            .add(feedbackPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .addContainerGap())
         );
         feedbackPanelLayout.setVerticalGroup(
             feedbackPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 175, Short.MAX_VALUE)
+            .add(feedbackPanelLayout.createSequentialGroup()
+                .add(jScrollPane1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         org.jdesktop.layout.GroupLayout antwoordPanelLayout = new org.jdesktop.layout.GroupLayout(antwoordPanel);
         antwoordPanel.setLayout(antwoordPanelLayout);
         antwoordPanelLayout.setHorizontalGroup(
             antwoordPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 732, Short.MAX_VALUE)
         );
         antwoordPanelLayout.setVerticalGroup(
             antwoordPanelLayout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-            .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .add(antwoordPanelLayout.createSequentialGroup()
+                .add(jPanel1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         valideerButton.setText("Valideer");
+        valideerButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                validate(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
-                .addContainerGap()
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, feedbackPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, vraag, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, titelLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, antwoordPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, antwoordLabel)
-                            .add(org.jdesktop.layout.GroupLayout.LEADING, vraagLabel))
-                        .addContainerGap())
-                    .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
-                        .add(valideerButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 389, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(204, 204, 204))))
+                        .addContainerGap()
+                        .add(antwoordLabel)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                        .add(antwoordPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(40, 40, 40)
+                        .add(vraagLabel)
+                        .add(64, 64, 64)
+                        .add(vraag, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 673, Short.MAX_VALUE)))
+                .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .add(200, 200, 200)
+                .add(valideerButton, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 389, Short.MAX_VALUE)
+                .add(239, 239, 239))
+            .add(layout.createSequentialGroup()
+                .add(feedbackPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
+            .add(layout.createSequentialGroup()
+                .add(22, 22, 22)
+                .add(titelLabel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 776, Short.MAX_VALUE)
+                .add(30, 30, 30))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -111,20 +136,33 @@ public class ExercisePanel extends javax.swing.JPanel {
                 .addContainerGap()
                 .add(titelLabel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 47, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(vraagLabel)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                    .add(vraagLabel)
+                    .add(vraag, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 41, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(vraag, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 124, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(antwoordLabel)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(antwoordPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                    .add(antwoordLabel)
+                    .add(antwoordPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(valideerButton, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 44, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 273, Short.MAX_VALUE)
-                .add(feedbackPanel, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                .add(feedbackPanel, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    private void validate(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_validate
+        
+        DefaultListModel lModel = new DefaultListModel();
+        feedbackList.removeAll();
+      
+        List<String> comment = gModel.validate();
+        for(int i = 0; i< comment.size(); i ++){
+            lModel.addElement(comment.get(i));
+        }
+          feedbackList.setModel(lModel);
+        
+    }//GEN-LAST:event_validate
     
     
     // Variables declaration - do not modify//GEN-BEGIN:variables

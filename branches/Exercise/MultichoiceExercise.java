@@ -9,8 +9,16 @@ import java.util.List;
 public class MultichoiceExercise extends Exercise {
 
 	/**
+	 * Intelligent feedback strings. Changes these in order to get other feedback.
+	 */
+	private static final String STRING_CORRECT = "Uw antwoord is juist.";
+	private static final String STRING_INCORRECT = "Uw antwoord is foutief.";
+	
+	/**
 	 * The list of possible answers.
 	 */
+	// Instead of a List<String> we had to use one big String, and parse it to a List<String> 
+	// when that info had to leave this class. This is all due to the ObjectDB.
 	private String possibilities;
 		
     /**
@@ -28,8 +36,12 @@ public class MultichoiceExercise extends Exercise {
         super("","","");
         possibilities = new String();
         correctSolution = 0;
-        addPanel = new MultichoiceAddPanel();
-        solvePanel = new MultichoiceSolvePanel(StringToList(possibilities));
+        init();
+    }
+    
+    public void init() {
+    	addPanel = new MultichoiceAddPanel();
+    	solvePanel = new MultichoiceSolvePanel(StringToList(possibilities));
     }
     
     /**
@@ -62,6 +74,12 @@ public class MultichoiceExercise extends Exercise {
     	solvePanel = new MultichoiceSolvePanel(possibilities);
     }
     
+    /**
+     * Function for converting a List of strings to one long string.
+     * Format: string;string;string;string;
+     * @param list List<string> to convert to one big string
+     * @return oen big string (format: string;string;string;)
+     */
     private String ListToString(List<String> list) {
     	String output = new String();
     	for (String el : list) {
@@ -71,6 +89,12 @@ public class MultichoiceExercise extends Exercise {
     	return output;
     }
     
+    /**
+     * Function for converting one long string to a List of strings
+     * Given long string should have the following format: string;string;string;
+     * @param string String to be converted
+     * @return List of strings
+     */
     private List<String> StringToList(String string) {
     	output = new ArrayList<String>();
     	String[] temp = string.split(";");
@@ -78,6 +102,22 @@ public class MultichoiceExercise extends Exercise {
     		output.add(temp[i]);
     	}
     	return output;
+    }
+    
+    /**
+     * Returns the possibilities
+     * @return List of possible answers
+     */
+    public List<String> getPossibilities(){
+    	return StringToList(possibilities);
+    }
+    
+    /**
+     * Returns the correct answer
+     * @return index of correct answer
+     */
+    public int getCorrectSolution(){
+    	return correctSolution;
     }
     
     /**
@@ -102,16 +142,19 @@ public class MultichoiceExercise extends Exercise {
     	List<String> output = new ArrayList<String>();
     	
     	if (((MultichoiceSolvePanel) solvePanel).getSelected() == correctSolution)
-    	    output.add("Uw antwoord is juist.");
+    	    output.add(STRING_CORRECT);
     	else
-    		output.add("Uw antwoord is verkeerd.");
+    		output.add(STRING_INCORRECT);
     	
         return output;
     }
     
+    /**
+     * Returns the panel used for solving an exercise
+     * @return the panel used for solving an exercise
+     */
     public SolvePanel createSolvePanel() {
-    	MultichoiceSolvePanel panel = new MultichoiceSolvePanel(StringToList(possibilities));
-    	return panel;
+    	return solvePanel;
     }
     
     /**

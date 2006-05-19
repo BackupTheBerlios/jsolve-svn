@@ -17,7 +17,11 @@ public class MultichoiceAddPanel extends AddPanel {
 	 * Generated serialversion id
 	 */
 	private static final long serialVersionUID = -7974016593794838344L;
-	private static final int AMOUNT = 10;
+	
+	/**
+	 * Maximum amount of possible answers
+	 */
+	private static final int AMOUNT = 6;
 	
 	/**
      * Constructor
@@ -56,7 +60,8 @@ public class MultichoiceAddPanel extends AddPanel {
      */
     private void initComponents() {
     	textfield = new JTextField[AMOUNT];
-    	radiobutton = new JRadioButton[textfield.length];
+    	radiobutton = new JRadioButton[AMOUNT];
+    	    	
     	for (int i = 0; i < textfield.length; i++) {
     		textfield[i] = new JTextField();
     		radiobutton[i] = new JRadioButton();
@@ -67,11 +72,12 @@ public class MultichoiceAddPanel extends AddPanel {
 
         for (int i = 0; i < radiobutton.length; i++) {
         	buttonGroup.add(radiobutton[i]);
+        	if (i == 0) radiobutton[i].setSelected(true);
         	radiobutton[i].setBorder(javax.swing.BorderFactory.createEmptyBorder(0, 0, 0, 0));
         	radiobutton[i].setMargin(new java.awt.Insets(0, 0, 0, 0));
         }
 
-        label.setText("Vul verschillende opties in, in duid het juiste antwoord aan.");
+        label.setText("Vul verschillende mogelijke antwoorden in, en duid het juiste antwoord aan. Lege rijen worden niet opgeslaan.");
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -103,7 +109,7 @@ public class MultichoiceAddPanel extends AddPanel {
         SequentialGroup seq3 = layout.createSequentialGroup();
         seq3.add(label);
         seq3.add(15, 15, 15);
-        for (int i = 0; i < textfield.length; i++) {
+       	for (int i = 0; i < textfield.length; i++) {
         	seq3.add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
         			.add(textfield[i], org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
         			.add(radiobutton[i]));

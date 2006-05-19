@@ -1,38 +1,36 @@
 /*
  * SelectDialog.java
  *
- * Created on 10 mei 2006, 14:33
+ * 
  */
 
 package GUI;
 
 import Exercise.*;
+import GUImodel.GUImodel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.DefaultListModel;
+import javax.swing.JComboBox;
 
 /**
  *
- * @author  Kurt Deklerck
+ * 
  */
 public class SelectDialog extends javax.swing.JDialog {
     
     private List<Exercise> sList;
     private List<String> types;
     private List<String> themes;
-    //private javax.swing.JList selectNamenList;
     private GUImodel gModel;
     private HoofdVenster hVenster;
-    //private java.awt.Frame hVenster;
-    
-    /** Creates new form SelectDialog */
+  
     
     
-    /**
-     * TODO eventueel enkel namen meegeven, en dan namen adden, ipv namen eerst uit oefn halen
-     */
-    
-    public SelectDialog(/*java.awt.Frame*/HoofdVenster parent, boolean modal, List<Exercise> selectList,List<String> typeList, List<String> themeList, GUImodel model) {
+    public SelectDialog(HoofdVenster parent, boolean modal, List<Exercise> selectList,List<String> typeList, List<String> themeList, GUImodel model) {
         super(parent, modal);
         hVenster = parent;
         sList = selectList;
@@ -41,9 +39,11 @@ public class SelectDialog extends javax.swing.JDialog {
         gModel = model;
         
         initComponents();
+        
         /**
          * lijst met oefn weergeven, eerst model maken
          */
+        
         DefaultListModel sModel = new DefaultListModel();
         if (selectList.size() >0){
             for (int i=0; i<selectList.size() ; i++)
@@ -51,8 +51,9 @@ public class SelectDialog extends javax.swing.JDialog {
         }
         
         
-        //selectNamenList = new javax.swing.JList(sModel);
         jList3.setModel(sModel);
+        
+        
         
          /**
          * lijst met types weergeven, eerst model maken
@@ -64,6 +65,7 @@ public class SelectDialog extends javax.swing.JDialog {
         }
         jList1.setModel(tModel);
         
+        
          /**
          * lijst met thema's weergeven, eerst model maken
          */
@@ -73,22 +75,12 @@ public class SelectDialog extends javax.swing.JDialog {
                 themeModel.addElement(themes.get(i));
         }
         
-        jList2.setModel(tModel);
+        jList2.setModel(themeModel);
         
     }
     
     
-    public boolean showInlogDialog(){
-        
-        // todo meerdere oefn openen
-        
-        int[] selected = jList3.getSelectedIndices();
-        for(int i = 0; i <1 ; i ++){
-            
-        }
-        setVisible(true);
-        return true;
-    }
+
     
     /** This method is called from within the constructor to
      * initialize the form.
@@ -116,25 +108,16 @@ public class SelectDialog extends javax.swing.JDialog {
         getAccessibleContext().setAccessibleName("selectDialog");
         getAccessibleContext().setAccessibleParent(this);
         filterPanel.setBorder(javax.swing.BorderFactory.createTitledBorder("Filter"));
-        jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(jList1);
-
         jLabel1.setText("Type:");
-
         jLabel2.setText("Genre:");
-
-        jList2.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane2.setViewportView(jList2);
-
         jButton1.setText("Filter");
+        jButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
+                filter(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout filterPanelLayout = new org.jdesktop.layout.GroupLayout(filterPanel);
         filterPanel.setLayout(filterPanelLayout);
@@ -170,17 +153,11 @@ public class SelectDialog extends javax.swing.JDialog {
         );
 
         filterPanelLayout.linkSize(new java.awt.Component[] {jScrollPane1, jScrollPane2}, org.jdesktop.layout.GroupLayout.VERTICAL);
-
-        jList3.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPanelExercises.setViewportView(jList3);
 
         openButton.setText("Openen");
-        openButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
+        openButton.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent evt) {
                 oefnOpenen(evt);
             }
         });
@@ -213,24 +190,71 @@ public class SelectDialog extends javax.swing.JDialog {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void oefnOpenen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oefnOpenen
-       
-        // TODO  meerdere oefeningen openen
-        DefaultListModel model = (DefaultListModel) jList3.getModel();
-        int[] geselecteerdeIndexen = jList3.getSelectedIndices(); 
-        List<String> selectedNamen = new ArrayList<String>();
-        //String[] selectedNamen = (String[]) jList3.getSelectedValues();
-        for( int i =0 ; i< geselecteerdeIndexen.length; i ++ ){
-            String naam = (String) model.get(i);
-            selectedNamen.add(naam);
+    private void filter(ActionEvent evt) {//GEN-FIRST:event_filter
+        
+        // TypeList
+        
+        DefaultListModel typModel = (DefaultListModel) jList1.getModel();
+        int[] geselecteerdeTypeIndexen = jList1.getSelectedIndices(); 
+        List<String> selectedTypes = new ArrayList<String>();
+        
+        for( int i =0 ; i< geselecteerdeTypeIndexen.length; i ++ ){
+            String naam = (String) typModel.get(geselecteerdeTypeIndexen[i]);
+            selectedTypes.add(naam);
         }
         
-        gModel.addExercises( selectedNamen);
-        hVenster.showExerciseScreen();
-        //gModel.showActiveExercise(hVenster);
-        gModel.setShowExerces(true);
-        setVisible(false);
-        gModel.fireStateChanged();
+        
+         // themeList
+        
+        DefaultListModel themeModel = (DefaultListModel) jList2.getModel();
+        int[] geselecteerdeThemeIndexen = jList2.getSelectedIndices(); 
+        List<String> selectedThemes = new ArrayList<String>();
+        
+        for( int i =0 ; i< geselecteerdeThemeIndexen.length; i ++ ){
+            String naam = (String) themeModel.get(geselecteerdeThemeIndexen[i]);
+            selectedThemes.add(naam);
+        }
+        
+        if (!(selectedTypes.size()==0 && selectedThemes.size() ==0)){
+               List<Exercise> newExNameList = gModel.filter(selectedTypes, selectedThemes);
+               
+               /**
+                 * lijst met nieuw gefilterde oefn weergeven, eerst model maken
+                 */
+                DefaultListModel sModel = new DefaultListModel();
+                if (newExNameList.size() >0){
+                    for (int i=0; i<newExNameList.size() ; i++)
+                        sModel.addElement(newExNameList.get(i).getTitle());
+                }
+                jList3.setModel(sModel);
+                jList3.validate();
+                jList3.repaint();
+                
+        }
+        
+        
+        
+        
+        
+    }//GEN-LAST:event_filter
+
+    private void oefnOpenen(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_oefnOpenen
+    	int[] geselecteerdeIndexen = jList3.getSelectedIndices();
+    	if (geselecteerdeIndexen.length > 0){  
+    		DefaultListModel model = (DefaultListModel) jList3.getModel(); 
+	        List<String> selectedNamen = new ArrayList<String>();
+	        for( int i =0 ; i< geselecteerdeIndexen.length; i ++ ){
+	            String naam = (String) model.get(geselecteerdeIndexen[i]);
+	            selectedNamen.add(naam);
+	        }
+	        
+	        gModel.addExercises(selectedNamen);
+	
+	        gModel.setShowExerces(true);
+	        setVisible(false);
+	
+	        gModel.fireStateChanged();
+    	}
     }//GEN-LAST:event_oefnOpenen
     
     /**

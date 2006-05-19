@@ -48,12 +48,18 @@ public abstract class Exercise {
      * Empty constructor for enhance method of database
      */
     public Exercise() {}
+    
+    /**
+     * Abstract method to initialize the solve and add panel.
+     */
+    public abstract void init();
 
     /**
      * Tests if the given answer is true and calls the right tests.
      * @return List of strings containing intelligent feedback 
+     * @throws NullPointerException when there is no solvepanel
      */
-    public abstract List<String> validate() throws NullPointerException;
+    public abstract List<String> validate();
     
     /**
      * Returns the theme of the exercise
@@ -138,8 +144,9 @@ public abstract class Exercise {
    
     /**
      * Call this to make sure this instant is consistant with inputted info.
+     * @throws NullPointerException when there is no AddPanel
      */
-    public abstract void writeInput() throws NullPointerException;
+    public abstract void writeInput();
     
     /**
      * Returns whether this Exercise is equal to the given Exercise.
@@ -151,6 +158,5 @@ public abstract class Exercise {
     			&& this.title.equalsIgnoreCase(ex.title)
     			&& this.theme.equalsIgnoreCase(ex.theme)
     			&& (this.getClass() == ex.getClass()));
-    }
-    
+    }    
  }
